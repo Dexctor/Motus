@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 export function ClarityScene({ hovered }: { hovered: boolean }) {
   return (
     <div className="absolute inset-0 flex items-center justify-center p-4 pt-3 sm:p-6 sm:pt-5">
-      <div className="relative w-full max-w-[240px] overflow-hidden rounded-lg border border-white/[0.06] bg-[#111] shadow-lg transition-all duration-500 sm:max-w-[280px]"
+      <div className="relative w-full max-w-[240px] overflow-hidden rounded-lg border border-white/[0.06] bg-[#111] shadow-lg transition-all duration-500 sm:max-w-[340px]"
         style={{ transform: hovered ? "scale(1.03)" : "scale(1)" }}
       >
         {/* Video area */}
@@ -278,7 +278,7 @@ export function ConversionScene({ hovered }: { hovered: boolean }) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center overflow-hidden p-4 pt-3 sm:p-5 sm:pt-4">
-      <div className="w-full max-w-[260px] sm:max-w-[300px]">
+      <div className="w-full max-w-[260px] sm:max-w-[380px]">
         {/* Header */}
         <div className="mb-3 flex items-center justify-between">
           <span className="text-[9px] font-medium text-white/20">Funnel Q1 2026</span>

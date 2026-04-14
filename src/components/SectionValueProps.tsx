@@ -29,6 +29,7 @@ function BentoCard({
   Icon,
   Scene,
   className,
+  gradient,
   index,
   inView,
 }: {
@@ -37,6 +38,7 @@ function BentoCard({
   Icon: React.ComponentType<{ className?: string }>;
   Scene: React.ComponentType<{ hovered: boolean }>;
   className?: string;
+  gradient?: string;
   index: number;
   inView: boolean;
 }) {
@@ -47,38 +49,33 @@ function BentoCard({
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.1 + index * 0.12, ease: "easeOut" }}
-      whileHover={{ y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
+      whileHover={{ y: -5, transition: { duration: 0.3, ease: "easeOut" } }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      className={`group/bento relative col-span-1 flex cursor-default flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#1a1a1a] transition-all duration-400 hover:border-[#2bf2d1]/25 hover:bg-[#1c1e1d] hover:shadow-[0_8px_50px_rgba(43,242,209,0.07),0_0_0_1px_rgba(43,242,209,0.08),inset_0_1px_0_rgba(255,255,255,0.04)] ${className || ""}`}
+      className={`group/bento relative col-span-1 flex cursor-default flex-col overflow-hidden rounded-2xl border border-white/[0.05] bg-[#161616] transition-all duration-500 hover:border-white/[0.12] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06)] ${className || ""}`}
     >
-      {/* Scene animation - reacts to hover */}
-      <div className="pointer-events-none relative flex-1 opacity-60 transition-opacity duration-500 group-hover/bento:opacity-100">
+      {/* Unique per-card gradient for depth */}
+      <div className={`pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover/bento:opacity-80 ${gradient || ""}`} />
+
+      {/* Scene animation */}
+      <div className="pointer-events-none relative flex-1 opacity-75 transition-opacity duration-500 group-hover/bento:opacity-100">
         <Scene hovered={hovered} />
-        {/* Edge fade: soft blur on all sides so the scene fades into the card */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_40%,#1a1a1a_100%)] transition-opacity duration-500 group-hover/bento:bg-[radial-gradient(ellipse_80%_80%_at_50%_50%,transparent_55%,#1c1e1d_100%)]" />
-        {/* Bottom fade so scene blends into text area */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#1a1a1a] to-transparent transition-colors duration-400 group-hover/bento:from-[#1c1e1d]" />
+        {/* Soft bottom fade only — no edge masking */}
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#161616] to-transparent" />
       </div>
 
-      {/* Ambient teal glow behind the card - visible on hover */}
-      <div className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl bg-[#2bf2d1]/0 blur-xl transition-all duration-500 group-hover/bento:bg-[#2bf2d1]/[0.03] group-hover/bento:blur-2xl" />
+      {/* Top shine line */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/0 to-transparent transition-all duration-500 group-hover/bento:via-white/[0.08]" />
 
-      {/* Subtle noise texture for depth */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.015] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
-
-      {/* Top shine line on hover */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#2bf2d1]/0 to-transparent transition-all duration-500 group-hover/bento:via-[#2bf2d1]/20" />
-
-      {/* Bottom content */}
-      <div className="relative z-10 border-t border-white/[0.04] bg-[#1a1a1a]/80 p-5 backdrop-blur-sm transition-colors duration-400 group-hover/bento:bg-[#1c1e1d]/80 sm:p-6">
+      {/* Bottom content — no border, smooth blend */}
+      <div className="relative z-10 p-5 pt-0 sm:p-6 sm:pt-0">
         <div className="flex items-start gap-3">
-          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#2bf2d1]/60 transition-colors duration-300 group-hover/bento:text-[#2bf2d1] sm:h-6 sm:w-6" />
+          <Icon className="mt-0.5 h-5 w-5 shrink-0 text-white/30 transition-colors duration-300 group-hover/bento:text-white/60 sm:h-6 sm:w-6" />
           <div>
-            <h3 className="mb-1 text-[15px] font-semibold text-neutral-200 transition-colors duration-300 group-hover/bento:text-white sm:text-[16px]">
+            <h3 className="mb-1 text-[15px] font-semibold text-neutral-300 transition-colors duration-300 group-hover/bento:text-white sm:text-[16px]">
               {name}
             </h3>
-            <p className="text-[12px] leading-relaxed text-neutral-500 transition-colors duration-300 group-hover/bento:text-neutral-400 sm:text-[13px]">
+            <p className="text-[12px] leading-relaxed text-neutral-600 transition-colors duration-300 group-hover/bento:text-neutral-400 sm:text-[13px]">
               {description}
             </p>
           </div>
@@ -142,6 +139,7 @@ const features = [
       <>Votre produit <span className="font-semibold text-white">compris</span> en moins de 30 secondes</>
     ),
     className: "sm:col-span-2",
+    gradient: "bg-[radial-gradient(ellipse_at_10%_20%,rgba(43,242,209,0.04),transparent_60%)]",
   },
   {
     Icon: ImpactIcon,
@@ -151,6 +149,7 @@ const features = [
       <>Des videos qui <span className="font-semibold text-white">captivent</span> et marquent les esprits</>
     ),
     className: "sm:col-span-1",
+    gradient: "bg-[radial-gradient(ellipse_at_90%_20%,rgba(255,255,255,0.02),transparent_60%)]",
   },
   {
     Icon: SpeedIcon,
@@ -160,6 +159,7 @@ const features = [
       <>Livraison en <span className="font-semibold text-white">5 a 14 jours</span> selon la formule</>
     ),
     className: "sm:col-span-1",
+    gradient: "bg-[radial-gradient(ellipse_at_10%_80%,rgba(255,255,255,0.02),transparent_60%)]",
   },
   {
     Icon: GrowthIcon,
@@ -169,6 +169,7 @@ const features = [
       <>Vos visiteurs curieux deviennent des <span className="font-semibold text-white">utilisateurs</span> convaincus</>
     ),
     className: "sm:col-span-2",
+    gradient: "bg-[radial-gradient(ellipse_at_90%_80%,rgba(43,242,209,0.03),transparent_60%)]",
   },
 ];
 
@@ -208,6 +209,7 @@ export default function SectionValueProps() {
               name={f.name}
               description={f.description}
               className={f.className}
+              gradient={f.gradient}
               index={i}
               inView={inView}
             />
