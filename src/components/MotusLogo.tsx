@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import svgPaths from "./svg-paths";
 
@@ -12,7 +12,7 @@ const letters = [
   { d: svgPaths.logoS, id: "S" },
 ];
 
-/* ─── Navbar logo: simple, no hover effect ─── */
+/* ─── Navbar logo ─── */
 export default function MotusLogo({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -35,23 +35,23 @@ export default function MotusLogo({ className = "" }: { className?: string }) {
   );
 }
 
-/* ─── Hero logo: mask reveal with skeleton on hover ─── */
+/* ─── Hero logo with mask reveal ─── */
 export function MotusLogoHero({ className = "" }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
 
-  // Raw mouse position
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Springy delayed position — follows mouse with soft lag
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  // Smooth follow with lag
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 180, mass: 0.6 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 180, mass: 0.6 });
 
-  // Mask templates using spring values — radius 120px (1.5x bigger)
-  const maskReveal = useMotionTemplate`radial-gradient(circle 120px at ${smoothX}px ${smoothY}px, black 30%, transparent 60%)`;
-  const maskHide = useMotionTemplate`radial-gradient(circle 120px at ${smoothX}px ${smoothY}px, transparent 30%, black 60%)`;
+  // Opacity: spring-controlled for smooth fade in/out on enter/leave
+  const rawOpacity = useMotionValue(0);
+  const opacity = useSpring(rawOpacity, { damping: 30, stiffness: 300 });
+
+  // Soft gradient mask — long fade for smooth edges
+  const mask = useMotionTemplate`radial-gradient(circle 120px at ${smoothX}px ${smoothY}px, black 15%, transparent 75%)`;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -65,22 +65,11 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
       ref={containerRef}
       className={`relative cursor-pointer ${className}`}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => {
-        setIsHovering(false);
-        // Instantly jump springs to current position so no lingering animation
-        smoothX.jump(mouseX.get());
-        smoothY.jump(mouseY.get());
-      }}
+      onMouseEnter={() => rawOpacity.set(1)}
+      onMouseLeave={() => rawOpacity.set(0)}
     >
-      {/* Layer 1: Normal solid white logo — masked inversely on hover */}
-      <motion.div
-        className="absolute inset-0"
-        style={isHovering ? {
-          maskImage: maskHide,
-          WebkitMaskImage: maskHide,
-        } : undefined}
-      >
+      {/* Base: solid white logo — always visible */}
+      <div className="absolute inset-0">
         <motion.svg
           className="h-full w-full"
           fill="none"
@@ -104,33 +93,32 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
             />
           ))}
         </motion.svg>
-      </motion.div>
+      </div>
 
-      {/* Spacer to give the container its size (since both layers are absolute) */}
+      {/* Spacer for sizing */}
       <svg className="invisible h-full w-full" viewBox="0 0 407 75" preserveAspectRatio="xMidYMid meet">
         <rect width="407" height="75" fill="none" />
       </svg>
 
-      {/* Layer 2: Wireframe revealed through circular mask with spring delay */}
+      {/* Overlay: bg matches site bg to "erase" the solid logo + wireframe on top.
+          Both masked together — fades in/out smoothly via spring opacity */}
       <motion.div
         className="absolute inset-0"
-        style={{
-          opacity: isHovering ? 1 : 0,
-          transition: "opacity 0.15s",
-          maskImage: maskReveal,
-          WebkitMaskImage: maskReveal,
-        }}
+        style={{ opacity, maskImage: mask, WebkitMaskImage: mask }}
       >
+        {/* Background that covers the white logo underneath */}
+        <div className="absolute inset-0 bg-[#171717]" />
+
+        {/* Wireframe on top */}
         <svg
           className="absolute inset-0 h-full w-full"
           fill="none"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 407 75"
         >
-          {/* Wireframe outline of each letter */}
           {letters.map((letter) => (
             <path
-              key={`wire-${letter.id}`}
+              key={`w-${letter.id}`}
               d={letter.d}
               fill="none"
               stroke="white"
@@ -139,7 +127,6 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
               opacity="0.7"
             />
           ))}
-          {/* Anchor points at letter vertices */}
           {[
             [0, 3], [85, 3], [42, 39],
             [92, 0], [197, 0], [144, 37],
@@ -152,7 +139,6 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
               <circle cx={cx} cy={cy} r="0.8" fill="white" opacity="0.8" />
             </g>
           ))}
-          {/* Horizontal + vertical construction lines through letter centers */}
           <line x1="0" y1="37.5" x2="407" y2="37.5" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
           <line x1="42" y1="0" x2="42" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
           <line x1="144" y1="0" x2="144" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
