@@ -26,7 +26,9 @@ export default function Navbar() {
         className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#171717]/90 py-3 backdrop-blur-xl sm:py-4" : "bg-transparent py-4 sm:py-6"}`}
       >
         <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 sm:px-6">
-          <MotusLogo className="h-[20px] w-auto text-[#dedede] sm:h-[24px]" />
+          <a href="#hero" aria-label="Retour en haut">
+            <MotusLogo className="h-[20px] w-auto text-[#dedede] transition-opacity duration-200 hover:opacity-80 sm:h-[24px]" />
+          </a>
 
           {/* Desktop nav */}
           <div className="hidden items-center gap-6 sm:flex lg:gap-8">

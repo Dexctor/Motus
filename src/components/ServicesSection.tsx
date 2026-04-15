@@ -10,7 +10,7 @@ const motionDesignVideos = [
 ];
 
 const montageVideos = [
-  { src: "https://assets.motus-pocus.com/VKS_VSL_V2.webm", title: "VKS" },
+  { src: "https://assets.motus-pocus.com/VKS_VSL_V2.webm", title: "VK Studio" },
   { src: "https://assets.motus-pocus.com/Sinvestir_BlackRock_recrutement_GaelDewas.webm", title: "S'investir" },
 ];
 
@@ -59,18 +59,17 @@ function VideoProject({ src, title }: { src: string; title: string }) {
 }
 
 /* ─── Service category label ─── */
-function ServiceLabel({ number, title }: { number: string; title: string }) {
+function ServiceLabel({ title }: { title: string }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6 }}
-      className="mb-8 flex items-center gap-4 sm:mb-10"
+      className="mb-8 flex items-center gap-3 sm:mb-10"
     >
-      <span className="text-[13px] font-medium text-[#2bf2d1]/50 sm:text-[14px]">{number}</span>
-      <div className="h-px w-6 bg-[#2bf2d1]/20 sm:w-8" />
-      <span className="text-[15px] font-medium text-white/70 sm:text-[16px]">{title}</span>
+      <div className="h-px w-4 bg-[#2bf2d1]/30" />
+      <span className="text-[20px] font-semibold text-white/80 sm:text-[24px] lg:text-[28px]">{title}</span>
     </motion.div>
   );
 }
@@ -95,7 +94,7 @@ export default function ServicesSection() {
         </motion.div>
 
         {/* ── Motion Design ── */}
-        <ServiceLabel number="01" title="Motion Design" />
+        <ServiceLabel title="Motion Design" />
         <div className="mb-20 grid grid-cols-1 gap-6 sm:mb-28 sm:grid-cols-2 sm:gap-7 lg:mb-32 lg:gap-8">
           {motionDesignVideos.map((v) => (
             <VideoProject key={v.src} src={v.src} title={v.title} />
@@ -103,7 +102,7 @@ export default function ServicesSection() {
         </div>
 
         {/* ── Montage Video ── */}
-        <ServiceLabel number="02" title="Montage Video" />
+        <ServiceLabel title="Montage Video" />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
           {montageVideos.map((v) => (
             <VideoProject key={v.src} src={v.src} title={v.title} />

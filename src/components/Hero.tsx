@@ -3,6 +3,7 @@ import { MotusLogoHero } from "./MotusLogo";
 export default function Hero() {
   return (
     <section
+      id="hero"
       className="relative flex flex-col items-center overflow-visible"
       style={{ minHeight: "100vh" }}
     >
@@ -16,7 +17,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto max-w-[900px] px-5 pb-24 pt-[22vh] text-center sm:px-6 sm:pb-32 sm:pt-[26vh] lg:pb-40 lg:pt-[30vh]">
         {/* Logo */}
         <div className="mb-8 sm:mb-10">
-          <MotusLogoHero className="mx-auto h-[48px] w-auto cursor-pointer text-[#dedede] drop-shadow-[0_0_40px_rgba(43,242,209,0.2)] sm:h-[80px] lg:h-[110px]" />
+          <MotusLogoHero className="mx-auto h-[48px] w-auto text-[#dedede] drop-shadow-[0_0_40px_rgba(43,242,209,0.2)] sm:h-[80px] lg:h-[110px]" />
         </div>
 
         {/* Subtitle */}
@@ -52,7 +53,7 @@ export default function Hero() {
 
       {/* Large video peeking */}
       <div className="relative z-20 mx-auto mt-auto w-full max-w-[1200px] px-5 opacity-0 animate-[fadeInUp_1s_ease-out_0.9s_forwards] sm:px-6">
-        <div className="relative overflow-hidden rounded-t-2xl border border-b-0 border-white/[0.08] bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
+        <div className="relative overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
           <video
             src="https://assets.motus-pocus.com/MOTUS_First_Showreel_Ever.webm"
             className="aspect-video w-full object-cover"

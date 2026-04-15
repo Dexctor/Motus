@@ -1,9 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import useInView from "./useInView";
 
 export default function SectionContact() {
   const { ref, inView } = useInView();
+
+  /* Load Calendly widget script */
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact" ref={ref}>
@@ -12,7 +24,7 @@ export default function SectionContact() {
       </div>
 
       <div
-        className={`relative mx-auto max-w-[620px] text-center transition-all duration-700 ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
+        className={`relative mx-auto max-w-[900px] text-center transition-all duration-700 ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       >
         <h2
           className="mb-3 text-[24px] text-white sm:mb-4 sm:text-[34px] lg:text-[44px]"
@@ -23,31 +35,22 @@ export default function SectionContact() {
         </h2>
 
         <p
-          className="mx-auto mb-8 max-w-[400px] px-2 text-[14px] text-[#dedede]/40 sm:mb-10 sm:max-w-[450px] sm:px-0 sm:text-[15px] lg:text-[16px]"
+          className="mx-auto mb-10 max-w-[450px] text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
           style={{ lineHeight: 1.7 }}
         >
           Reservez un creneau de 30 minutes. On ecoute vos besoins, on vous
           propose une solution adaptee. Sans engagement.
         </p>
 
-        <a
-          href="https://calendly.com/motus-pocus"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2.5 rounded-xl bg-[#2bf2d1] px-7 py-4 text-[15px] font-bold text-[#171717] transition-all duration-300 hover:bg-[#24d4bc] hover:shadow-[0_0_50px_rgba(43,242,209,0.4)] active:scale-95 sm:gap-3 sm:px-10 sm:py-5 sm:text-[16px] sm:hover:scale-[1.02]"
-        >
-          <svg className="h-4.5 w-4.5 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span className="hidden sm:inline">Reserver un appel decouverte</span>
-          <span className="sm:hidden">Reserver un appel</span>
-          <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
-            &rarr;
-          </span>
-        </a>
+        {/* Calendly inline embed */}
+        <div
+          className="calendly-inline-widget mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
+          data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1"
+          style={{ minWidth: "320px", height: "700px", maxWidth: "700px", width: "100%" }}
+        />
 
         {/* Trust signals */}
-        <div className="mt-6 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-8 sm:gap-6 sm:text-[13px]">
+        <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-10 sm:gap-6 sm:text-[13px]">
           <span className="flex items-center gap-1 sm:gap-1.5">
             <svg className="h-3 w-3 sm:h-3.5 sm:w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
             Gratuit

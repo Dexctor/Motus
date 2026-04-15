@@ -78,7 +78,9 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
 
         {/* CTA */}
         <a
-          href="#contact"
+          href="https://calendly.com/motuspocus-lab/30min"
+          target="_blank"
+          rel="noopener noreferrer"
           className={`block w-full rounded-xl py-3 text-center text-[13px] transition-all duration-300 active:scale-95 sm:py-3.5 sm:text-[14px] ${
             plan.highlighted
               ? "bg-[#2bf2d1] text-[#171717] hover:bg-[#24d4bc] hover:shadow-[0_0_30px_rgba(43,242,209,0.3)]"
