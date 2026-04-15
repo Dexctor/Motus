@@ -42,12 +42,20 @@ export default function SectionContact() {
           propose une solution adaptee. Sans engagement.
         </p>
 
-        {/* Calendly inline embed */}
+        {/* Calendly inline embed — dark mode via CSS invert */}
         <div
-          className="calendly-inline-widget mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
-          data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1"
+          className="mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
           style={{ minWidth: "320px", height: "700px", maxWidth: "700px", width: "100%" }}
-        />
+        >
+          <div
+            className="calendly-inline-widget h-full w-full"
+            data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1"
+            style={{
+              height: "100%",
+              filter: "invert(1) hue-rotate(180deg)",
+            }}
+          />
+        </div>
 
         {/* Trust signals */}
         <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-10 sm:gap-6 sm:text-[13px]">
