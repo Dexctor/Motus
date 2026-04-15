@@ -42,10 +42,10 @@ export default function SectionContact() {
           propose une solution adaptee. Sans engagement.
         </p>
 
-        {/* Calendly inline embed — dark mode via CSS invert */}
+        {/* Calendly inline embed — portrait format, dark mode */}
         <div
           className="mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
-          style={{ minWidth: "320px", height: "700px", maxWidth: "700px", width: "100%" }}
+          style={{ width: "100%", maxWidth: "480px", height: "1000px" }}
         >
           <div
             className="calendly-inline-widget h-full w-full"
