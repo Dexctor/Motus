@@ -10,8 +10,8 @@ export default function MagneticButton({ children }: { children: ReactNode }) {
   const handleMouse = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
-    const x = clientX - (left + width / 2);
-    const y = clientY - (top + height / 2);
+    const x = (clientX - (left + width / 2)) * 0.3;
+    const y = (clientY - (top + height / 2)) * 0.3;
     setPosition({ x, y });
   };
 
@@ -25,7 +25,7 @@ export default function MagneticButton({ children }: { children: ReactNode }) {
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.1 }}
       style={{ position: "relative" }}
     >
       {children}
