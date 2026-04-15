@@ -28,9 +28,6 @@ export default function RootLayout({
       lang="fr"
       className={`${syne.variable} ${manrope.variable} h-full antialiased`}
     >
-      <head>
-        <script src="https://assets.calendly.com/assets/external/widget.js" async />
-      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

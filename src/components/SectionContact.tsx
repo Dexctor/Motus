@@ -1,9 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import useInView from "./useInView";
 
 export default function SectionContact() {
   const { ref, inView } = useInView();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // Load Calendly script client-side only
+    if (!document.querySelector('script[src*="calendly"]')) {
+      const script = document.createElement("script");
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
 
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact" ref={ref}>
@@ -30,19 +43,21 @@ export default function SectionContact() {
           propose une solution adaptee. Sans engagement.
         </p>
 
-        {/* Calendly inline embed — portrait format, dark mode */}
+        {/* Calendly — rendered only client-side to avoid hydration mismatch */}
         <div
           className="mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
           style={{ width: "100%", maxWidth: "480px", height: "1000px" }}
         >
-          <div
-            className="calendly-inline-widget h-full w-full"
-            data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr"
-            style={{
-              height: "100%",
-              filter: "invert(1) hue-rotate(180deg)",
-            }}
-          />
+          {mounted && (
+            <div
+              className="calendly-inline-widget h-full w-full"
+              data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr"
+              style={{
+                height: "100%",
+                filter: "invert(1) hue-rotate(180deg)",
+              }}
+            />
+          )}
         </div>
 
         {/* Trust signals */}
