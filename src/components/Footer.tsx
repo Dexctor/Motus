@@ -6,7 +6,7 @@ export default function Footer() {
           {/* Left — copyright + email */}
           <div className="flex flex-col gap-2 text-center sm:text-left">
             <p className="text-[12px] text-[#dedede]/30 sm:text-[13px]">
-              &copy; 2026 Motus Pocus &mdash; Auto-entrepreneur &middot; SIRET a venir
+              &copy; 2026 Motus Pocus &mdash; Auto-entrepreneur &middot; SIRET 832 410 278 00011
             </p>
             <a
               href="mailto:motuspocus.lab@gmail.com"

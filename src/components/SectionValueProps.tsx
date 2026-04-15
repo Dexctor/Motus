@@ -8,18 +8,29 @@ import useInView from "./useInView";
    ANIMATED ICONS
    ═══════════════════════════════════════════ */
 
-/* Eye icon: opens on hover, closes on leave */
+/* Eye icon: always open, widens with bounce on hover */
 function EyeIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
-      {/* Eye outline */}
+    <motion.svg
+      className="h-20 w-20 sm:h-24 sm:w-24"
+      viewBox="0 0 48 48"
+      fill="none"
+      animate={{ scale: hovered ? 1.08 : 1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+    >
+      {/* Eye outline — widens vertically on hover */}
       <motion.path
-        d="M24 14C14 14 7 24 7 24C7 24 14 34 24 34C34 34 41 24 41 24C41 24 34 14 24 14Z"
+        animate={{
+          d: hovered
+            ? "M24 10C14 10 5 24 5 24C5 24 14 38 24 38C34 38 43 24 43 24C43 24 34 10 24 10Z"
+            : "M24 14C14 14 7 24 7 24C7 24 14 34 24 34C34 34 41 24 41 24C41 24 34 14 24 14Z",
+        }}
         stroke="#2bf2d1"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
+        transition={{ type: "spring", stiffness: 300, damping: 15 }}
       />
       {/* Iris */}
       <motion.circle
@@ -29,34 +40,33 @@ function EyeIcon({ hovered }: { hovered: boolean }) {
         stroke="#2bf2d1"
         strokeWidth="2"
         fill="none"
-        animate={{ r: hovered ? 5 : 0, opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        animate={{ r: hovered ? 6 : 5 }}
+        transition={{ type: "spring", stiffness: 300, damping: 15 }}
       />
       {/* Pupil */}
-      <motion.circle
-        cx="24"
-        cy="24"
-        fill="#2bf2d1"
-        animate={{ r: hovered ? 2.5 : 0, opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
-      />
-      {/* Eyelid closing line (visible when not hovered) */}
-      <motion.path
-        d="M7 24H41"
-        stroke="#2bf2d1"
-        strokeWidth="2"
-        strokeLinecap="round"
-        animate={{ opacity: hovered ? 0 : 0.6, pathLength: hovered ? 0 : 1 }}
-        transition={{ duration: 0.3 }}
-      />
-    </svg>
+      <circle cx="24" cy="24" r="2.5" fill="#2bf2d1" />
+    </motion.svg>
   );
 }
 
-/* Lightning with sparks on hover */
+/* Lightning with 4 burst lines on hover + zoom bounce */
 function LightningIcon({ hovered }: { hovered: boolean }) {
+  // 4 burst lines radiating from center (top-right, bottom-right, bottom-left, top-left)
+  const bursts = [
+    { x1: 30, y1: 18, x2: 38, y2: 10 },  // top-right
+    { x1: 30, y1: 30, x2: 38, y2: 38 },  // bottom-right
+    { x1: 18, y1: 30, x2: 10, y2: 38 },  // bottom-left
+    { x1: 18, y1: 18, x2: 10, y2: 10 },  // top-left
+  ];
+
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
+    <motion.svg
+      className="h-20 w-20 sm:h-24 sm:w-24"
+      viewBox="0 0 48 48"
+      fill="none"
+      animate={{ scale: hovered ? 1.12 : 1 }}
+      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+    >
       {/* Main bolt */}
       <motion.path
         d="M26 6L12 26H22L20 42L36 20H26L26 6Z"
@@ -67,36 +77,31 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
         animate={{ fill: hovered ? "rgba(43,242,209,0.15)" : "rgba(43,242,209,0)" }}
         transition={{ duration: 0.3 }}
       />
-      {/* Sparks — only visible on hover */}
-      {[
-        { x1: 36, y1: 14, x2: 42, y2: 10 },
-        { x1: 38, y1: 22, x2: 44, y2: 22 },
-        { x1: 10, y1: 30, x2: 4, y2: 32 },
-        { x1: 8, y1: 22, x2: 2, y2: 20 },
-        { x1: 34, y1: 30, x2: 40, y2: 34 },
-      ].map((spark, i) => (
+      {/* 4 burst lines — spread outward on hover */}
+      {bursts.map((b, i) => (
         <motion.line
           key={i}
-          x1={spark.x1}
-          y1={spark.y1}
-          x2={spark.x2}
-          y2={spark.y2}
+          x1={b.x1}
+          y1={b.y1}
+          x2={b.x1}
+          y2={b.y1}
           stroke="#2bf2d1"
-          strokeWidth="1.5"
+          strokeWidth="2"
           strokeLinecap="round"
           animate={{
-            opacity: hovered ? [0, 1, 0] : 0,
-            pathLength: hovered ? [0, 1, 0] : 0,
+            x2: hovered ? b.x2 : b.x1,
+            y2: hovered ? b.y2 : b.y1,
+            opacity: hovered ? 0.8 : 0,
           }}
           transition={{
-            duration: 0.6,
-            delay: hovered ? i * 0.08 : 0,
-            repeat: hovered ? Infinity : 0,
-            repeatDelay: 0.8,
+            type: "spring",
+            stiffness: 300,
+            damping: 15,
+            delay: i * 0.05,
           }}
         />
       ))}
-    </svg>
+    </motion.svg>
   );
 }
 
