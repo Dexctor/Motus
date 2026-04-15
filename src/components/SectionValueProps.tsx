@@ -100,49 +100,58 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Growth graph — full chart with axes, grid, angular line + arrow */
+/* Bar chart with growing bars + trend arrow */
 function GraphIcon({ hovered }: { hovered: boolean }) {
+  const bars = [
+    { x: 8, h: 10, delay: 0 },
+    { x: 17, h: 18, delay: 0.08 },
+    { x: 26, h: 14, delay: 0.16 },
+    { x: 35, h: 26, delay: 0.24 },
+    { x: 44, h: 34, delay: 0.32 },
+  ];
+
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 56 56" fill="none">
-      {/* Y axis */}
-      <line x1="10" y1="6" x2="10" y2="46" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 56 48" fill="none">
       {/* X axis */}
-      <line x1="10" y1="46" x2="52" y2="46" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
-      {/* Horizontal grid lines */}
-      <line x1="10" y1="36" x2="50" y2="36" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
-      <line x1="10" y1="26" x2="50" y2="26" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
-      <line x1="10" y1="16" x2="50" y2="16" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
-      {/* Tick marks on Y axis */}
-      <line x1="8" y1="36" x2="10" y2="36" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
-      <line x1="8" y1="26" x2="10" y2="26" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
-      <line x1="8" y1="16" x2="10" y2="16" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
-      {/* Tick marks on X axis */}
-      <line x1="20" y1="46" x2="20" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
-      <line x1="30" y1="46" x2="30" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
-      <line x1="40" y1="46" x2="40" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      <line x1="4" y1="44" x2="54" y2="44" stroke="#2bf2d1" strokeWidth="1" opacity="0.25" />
 
-      {/* Growth line — angular zigzag going up */}
+      {/* Bars */}
+      {bars.map((bar, i) => (
+        <motion.rect
+          key={i}
+          x={bar.x}
+          width="6"
+          rx="1.5"
+          fill="#2bf2d1"
+          animate={{
+            y: hovered ? 44 - bar.h : 44 - bar.h * 0.3,
+            height: hovered ? bar.h : bar.h * 0.3,
+            opacity: hovered ? 0.85 : 0.25,
+          }}
+          transition={{ duration: 0.5, delay: bar.delay, ease: "easeOut" }}
+        />
+      ))}
+
+      {/* Trend arrow going up — appears on hover */}
       <motion.polyline
-        points="10,42 18,34 24,38 32,24 40,20 48,10"
+        points="8,38 20,30 30,34 40,22 52,10"
         stroke="#2bf2d1"
-        strokeWidth="2.5"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ pathLength: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.35 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        animate={{ pathLength: hovered ? 1 : 0, opacity: hovered ? 0.6 : 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
       />
-
-      {/* Arrow head at the end of the line */}
       <motion.polyline
-        points="44,6 48,10 44,14"
+        points="47,8 52,10 50,15"
         stroke="#2bf2d1"
-        strokeWidth="2.5"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3, delay: 0.5 }}
+        animate={{ opacity: hovered ? 0.6 : 0 }}
+        transition={{ duration: 0.3, delay: 0.7 }}
       />
     </svg>
   );
