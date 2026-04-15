@@ -2,7 +2,6 @@
 
 import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
-import { ChartColumnIncreasing } from "lucide-react";
 import useInView from "./useInView";
 
 /* ═══════════════════════════════════════════
@@ -101,20 +100,40 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Conversion: Lucide chart icon with scale animation */
+/* Conversion: animated bar chart — bars grow one by one on hover */
 function GraphIcon({ hovered }: { hovered: boolean }) {
+  // 3 bars: small, medium, tall — each with its own y1 (top) and y2 (bottom=17)
+  const bars = [
+    { x: 8, y1Full: 14, y1Idle: 16.5, delay: 0 },     // short bar
+    { x: 13, y1Full: 9, y1Idle: 15, delay: 0.1 },      // medium bar
+    { x: 18, y1Full: 5, y1Idle: 14, delay: 0.2 },      // tall bar
+  ];
+
   return (
-    <motion.div
-      animate={{ scale: hovered ? 1.1 : 1, y: hovered ? -2 : 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      <ChartColumnIncreasing
-        size={80}
-        strokeWidth={1.5}
-        className="text-[#2bf2d1] transition-opacity duration-300"
-        style={{ opacity: hovered ? 1 : 0.5 }}
-      />
-    </motion.div>
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 24 24" fill="none" stroke="#2bf2d1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {/* Axes — L shape */}
+      <path d="M3 3v16a2 2 0 0 0 2 2h16" opacity={hovered ? 0.6 : 0.3} />
+
+      {/* Animated bars */}
+      {bars.map((bar, i) => (
+        <motion.line
+          key={i}
+          x1={bar.x}
+          x2={bar.x}
+          y1={bar.y1Full}
+          y2={17}
+          animate={{
+            y1: hovered ? bar.y1Full : bar.y1Idle,
+            opacity: hovered ? 1 : 0.3,
+          }}
+          transition={{
+            duration: 0.5,
+            delay: bar.delay,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        />
+      ))}
+    </svg>
   );
 }
 
