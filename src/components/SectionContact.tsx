@@ -1,35 +1,48 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+
+declare global {
+  interface Window {
+    Calendly?: {
+      initInlineWidget: (opts: {
+        url: string;
+        parentElement: HTMLElement;
+      }) => void;
+    };
+  }
+}
 
 export default function SectionContact() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const calRef = useRef<HTMLDivElement>(null);
+  const initedRef = useRef(false);
 
   useEffect(() => {
-    // Mount widget first, then load script so Calendly finds the div
-    setMounted(true);
-  }, []);
+    function initCalendly() {
+      if (initedRef.current || !calRef.current || !window.Calendly) return;
+      initedRef.current = true;
+      window.Calendly.initInlineWidget({
+        url: "https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr",
+        parentElement: calRef.current,
+      });
+    }
 
-  useEffect(() => {
-    if (!mounted) return;
-    // Load Calendly script after widget div is in the DOM
-    const existing = document.querySelector('script[src*="calendly"]');
-    if (existing) {
-      // Script already loaded — re-init Calendly to pick up our widget
-      if (typeof window !== "undefined" && (window as unknown as Record<string, unknown>).Calendly) {
-        (window as unknown as Record<string, { initInlineWidgets: () => void }>).Calendly.initInlineWidgets();
-      }
+    // If script already loaded
+    if (window.Calendly) {
+      initCalendly();
       return;
     }
+
+    // Load script then init
     const script = document.createElement("script");
     script.src = "https://assets.calendly.com/assets/external/widget.js";
     script.async = true;
+    script.onload = initCalendly;
     document.head.appendChild(script);
-  }, [mounted]);
+  }, []);
 
   return (
-    <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact" ref={ref}>
+    <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact">
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="h-[250px] w-[300px] rounded-full bg-[#2bf2d1]/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
       </div>
@@ -51,22 +64,17 @@ export default function SectionContact() {
           propose une solution adaptee. Sans engagement.
         </p>
 
-        {/* Calendly — rendered only client-side to avoid hydration mismatch */}
+        {/* Calendly container — init programmatically */}
         <div
+          ref={calRef}
           className="mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
-          style={{ width: "100%", maxWidth: "480px", height: "1000px" }}
-        >
-          {mounted && (
-            <div
-              className="calendly-inline-widget h-full w-full"
-              data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr"
-              style={{
-                height: "100%",
-                filter: "invert(1) hue-rotate(180deg)",
-              }}
-            />
-          )}
-        </div>
+          style={{
+            width: "100%",
+            maxWidth: "480px",
+            height: "1000px",
+            filter: "invert(1) hue-rotate(180deg)",
+          }}
+        />
 
         {/* Trust signals */}
         <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-10 sm:gap-6 sm:text-[13px]">
