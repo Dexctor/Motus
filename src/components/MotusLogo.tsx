@@ -58,30 +58,37 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Layer 1: Normal solid white logo */}
-      <motion.svg
-        className="h-full w-full"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-        viewBox="0 0 407 75"
-        initial="hidden"
-        animate="visible"
+      {/* Layer 1: Normal solid white logo — masked inversely on hover */}
+      <div
+        style={isHovering ? {
+          maskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
+          WebkitMaskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
+        } : undefined}
       >
-        {letters.map((letter, i) => (
-          <motion.path
-            key={letter.id}
-            d={letter.d}
-            fill="currentColor"
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.8, filter: "blur(6px)" },
-              visible: {
-                opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
-                transition: { delay: 0.15 + i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-              },
-            }}
-          />
-        ))}
-      </motion.svg>
+        <motion.svg
+          className="h-full w-full"
+          fill="none"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 407 75"
+          initial="hidden"
+          animate="visible"
+        >
+          {letters.map((letter, i) => (
+            <motion.path
+              key={letter.id}
+              d={letter.d}
+              fill="currentColor"
+              variants={{
+                hidden: { opacity: 0, y: 30, scale: 0.8, filter: "blur(6px)" },
+                visible: {
+                  opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
+                  transition: { delay: 0.15 + i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+            />
+          ))}
+        </motion.svg>
+      </div>
 
       {/* Layer 2: Wireframe revealed through circular mask — no background */}
       <div
