@@ -100,31 +100,44 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Trend line going up with arrow — stroke style matching other icons */
+/* Conversion: diagonal arrow pointing up-right with a base line */
 function GraphIcon({ hovered }: { hovered: boolean }) {
   return (
     <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
-      {/* Thick angular trend line going up */}
-      <motion.polyline
-        points="4,40 16,30 24,36 36,16 44,8"
+      {/* Base horizontal line */}
+      <motion.line
+        x1="6" y1="42" x2="42" y2="42"
         stroke="#2bf2d1"
-        strokeWidth="3"
+        strokeWidth="2"
         strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        animate={{ pathLength: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.4 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        animate={{ opacity: hovered ? 0.5 : 0.2 }}
+        transition={{ duration: 0.3 }}
       />
-      {/* Big arrow head */}
-      <motion.polyline
-        points="38,4 44,8 40,14"
+      {/* Diagonal arrow shaft — from bottom-left to top-right */}
+      <motion.line
+        x1="10" y1="38" x2="38" y2="10"
         stroke="#2bf2d1"
-        strokeWidth="3"
+        strokeWidth="2.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        animate={{ opacity: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3, delay: 0.4 }}
+        animate={{ pathLength: hovered ? 1 : 0.4, opacity: hovered ? 1 : 0.4 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      />
+      {/* Arrow head — two lines forming a V */}
+      <motion.line
+        x1="28" y1="10" x2="38" y2="10"
+        stroke="#2bf2d1"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -4 }}
+        transition={{ duration: 0.3, delay: 0.35 }}
+      />
+      <motion.line
+        x1="38" y1="10" x2="38" y2="20"
+        stroke="#2bf2d1"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : -4 }}
+        transition={{ duration: 0.3, delay: 0.35 }}
       />
     </svg>
   );
