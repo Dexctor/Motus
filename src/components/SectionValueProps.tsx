@@ -100,30 +100,48 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Growth graph — angular lines with arrow (like a stock chart going up) */
+/* Growth graph — full chart with axes, grid, angular line + arrow */
 function GraphIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
-      {/* Angular growth line: down-up-down-UP pattern */}
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 56 56" fill="none">
+      {/* Y axis */}
+      <line x1="10" y1="6" x2="10" y2="46" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
+      {/* X axis */}
+      <line x1="10" y1="46" x2="52" y2="46" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
+      {/* Horizontal grid lines */}
+      <line x1="10" y1="36" x2="50" y2="36" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
+      <line x1="10" y1="26" x2="50" y2="26" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
+      <line x1="10" y1="16" x2="50" y2="16" stroke="#2bf2d1" strokeWidth="0.5" opacity="0.12" />
+      {/* Tick marks on Y axis */}
+      <line x1="8" y1="36" x2="10" y2="36" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      <line x1="8" y1="26" x2="10" y2="26" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      <line x1="8" y1="16" x2="10" y2="16" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      {/* Tick marks on X axis */}
+      <line x1="20" y1="46" x2="20" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      <line x1="30" y1="46" x2="30" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+      <line x1="40" y1="46" x2="40" y2="48" stroke="#2bf2d1" strokeWidth="1" opacity="0.3" />
+
+      {/* Growth line — angular zigzag going up */}
       <motion.polyline
-        points="4,38 14,28 20,34 30,18 42,8"
+        points="10,42 18,34 24,38 32,24 40,20 48,10"
         stroke="#2bf2d1"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ pathLength: hovered ? 1 : 0.35, opacity: hovered ? 1 : 0.4 }}
+        animate={{ pathLength: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.35 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       />
-      {/* Arrow head at the end */}
+
+      {/* Arrow head at the end of the line */}
       <motion.polyline
-        points="36,6 42,8 40,14"
+        points="44,6 48,10 44,14"
         stroke="#2bf2d1"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ opacity: hovered ? 1 : 0, pathLength: hovered ? 1 : 0 }}
+        animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.3, delay: 0.5 }}
       />
     </svg>
