@@ -60,6 +60,7 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
     >
       {/* Layer 1: Normal solid white logo — masked inversely on hover */}
       <div
+        className="absolute inset-0"
         style={isHovering ? {
           maskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
           WebkitMaskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
@@ -90,7 +91,12 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         </motion.svg>
       </div>
 
-      {/* Layer 2: Wireframe revealed through circular mask — no background */}
+      {/* Spacer to give the container its size (since both layers are absolute) */}
+      <svg className="invisible h-full w-full" viewBox="0 0 407 75" preserveAspectRatio="xMidYMid meet">
+        <rect width="407" height="75" fill="none" />
+      </svg>
+
+      {/* Layer 2: Wireframe revealed through circular mask */}
       <div
         className="absolute inset-0"
         style={{
