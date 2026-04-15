@@ -1,22 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import useInView from "./useInView";
+import { useEffect, useRef, useState } from "react";
 
 export default function SectionContact() {
-  const { ref, inView } = useInView();
+  const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mount widget first, then load script so Calendly finds the div
     setMounted(true);
-    // Load Calendly script client-side only
-    if (!document.querySelector('script[src*="calendly"]')) {
-      const script = document.createElement("script");
-      script.src = "https://assets.calendly.com/assets/external/widget.js";
-      script.async = true;
-      document.head.appendChild(script);
-    }
   }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    // Load Calendly script after widget div is in the DOM
+    const existing = document.querySelector('script[src*="calendly"]');
+    if (existing) {
+      // Script already loaded — re-init Calendly to pick up our widget
+      if (typeof window !== "undefined" && (window as unknown as Record<string, unknown>).Calendly) {
+        (window as unknown as Record<string, { initInlineWidgets: () => void }>).Calendly.initInlineWidgets();
+      }
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }, [mounted]);
 
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact" ref={ref}>
@@ -24,9 +34,7 @@ export default function SectionContact() {
         <div className="h-[250px] w-[300px] rounded-full bg-[#2bf2d1]/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
       </div>
 
-      <div
-        className={`relative mx-auto max-w-[900px] text-center transition-all duration-700 ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-      >
+      <div className="relative mx-auto max-w-[900px] text-center">
         <h2
           className="mb-3 text-[24px] text-white sm:mb-4 sm:text-[34px] lg:text-[44px]"
           style={{ fontWeight: 700, lineHeight: 1.2 }}
