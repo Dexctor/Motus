@@ -135,14 +135,6 @@ function GraphIcon({ hovered }: { hovered: boolean }) {
         animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -4 }}
         transition={{ duration: 0.4, delay: 0.5 }}
       />
-      <motion.circle
-        cx="42"
-        cy="8"
-        r="2.5"
-        fill="#2bf2d1"
-        animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3, delay: 0.6 }}
-      />
     </svg>
   );
 }
