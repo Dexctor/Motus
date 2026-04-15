@@ -100,22 +100,33 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         <rect width="407" height="75" fill="none" />
       </svg>
 
-      {/* Overlay: bg matches site bg to "erase" the solid logo + wireframe on top.
-          Both masked together — fades in/out smoothly via spring opacity */}
+      {/* Overlay: clipped to logo shape only — no visible rectangle.
+          Inside the mask circle: erases white fill, shows wireframe outline */}
       <motion.div
         className="absolute inset-0"
         style={{ opacity, maskImage: mask, WebkitMaskImage: mask }}
       >
-        {/* Background that covers the white logo underneath */}
-        <div className="absolute inset-0 bg-[#171717]" />
-
-        {/* Wireframe on top */}
         <svg
           className="absolute inset-0 h-full w-full"
           fill="none"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 407 75"
         >
+          <defs>
+            {/* Clip to letter shapes only — nothing outside the letters is visible */}
+            <clipPath id="clip_letters_mask">
+              {letters.map((letter) => (
+                <path key={`clip-${letter.id}`} d={letter.d} />
+              ))}
+            </clipPath>
+          </defs>
+
+          {/* Dark fill ONLY inside the letter shapes — erases the white logo */}
+          <g clipPath="url(#clip_letters_mask)">
+            <rect width="407" height="75" fill="#171717" />
+          </g>
+
+          {/* Wireframe outlines + construction lines (these are outside clipPath so they show freely) */}
           {letters.map((letter) => (
             <path
               key={`w-${letter.id}`}
@@ -139,12 +150,6 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
               <circle cx={cx} cy={cy} r="0.8" fill="white" opacity="0.8" />
             </g>
           ))}
-          <line x1="0" y1="37.5" x2="407" y2="37.5" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
-          <line x1="42" y1="0" x2="42" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
-          <line x1="144" y1="0" x2="144" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
-          <line x1="231" y1="0" x2="231" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
-          <line x1="303" y1="0" x2="303" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
-          <line x1="375" y1="0" x2="375" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
         </svg>
       </motion.div>
     </div>
