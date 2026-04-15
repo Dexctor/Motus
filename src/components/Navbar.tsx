@@ -46,11 +46,11 @@ export default function Navbar() {
               Tarifs
             </a>
             <MagneticButton>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#2bf2d1] px-5 py-2.5 text-[14px] font-semibold text-[#171717] transition-all duration-200 hover:bg-[#24d4bc] hover:shadow-[0_0_20px_rgba(43,242,209,0.3)]"
-              >
-                Reserver un appel
+              <a href="#contact" className="moving-border-wrap">
+                <span className="moving-border-spinner" />
+                <span className="btn-primary" style={{ padding: "8px 18px", fontSize: "12px" }}>
+                  Reserver un appel
+                </span>
               </a>
             </MagneticButton>
           </div>

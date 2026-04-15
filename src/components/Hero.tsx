@@ -41,13 +41,11 @@ export default function Hero() {
         {/* CTA */}
         <div className="opacity-0 animate-[fadeInUp_0.7s_ease-out_0.6s_forwards]">
           <MagneticButton>
-            <a
-              href="#pricing"
-              className="group inline-flex items-center gap-2.5 rounded-xl bg-[#2bf2d1] px-7 py-3.5 text-[15px] font-bold text-[#171717] transition-all duration-300 hover:bg-[#24d4bc] hover:shadow-[0_0_40px_rgba(43,242,209,0.4)] active:scale-95 sm:px-8 sm:py-4 sm:text-[16px] sm:hover:scale-[1.02]"
-            >
-              Voir les offres
-              <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
-                &rarr;
+            <a href="#pricing" className="moving-border-wrap">
+              <span className="moving-border-spinner" />
+              <span className="btn-primary">
+                Voir les offres
+                <span>&rarr;</span>
               </span>
             </a>
           </MagneticButton>
