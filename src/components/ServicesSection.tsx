@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import VideoPlayer from "./VideoPlayer";
 
 /* ─── Data ─── */
 const motionDesignVideos = [
@@ -29,13 +30,9 @@ function VideoProject({ src, title }: { src: string; title: string }) {
     <motion.div ref={ref} style={{ scale }} className="group">
       {/* Video — no overlay, no filter, clean */}
       <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
-        <video
+        <VideoPlayer
           src={src}
           className="aspect-video w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
         />
         {/* Subtle border that glows when in view */}
         <motion.div

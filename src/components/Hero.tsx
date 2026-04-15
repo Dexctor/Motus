@@ -1,5 +1,6 @@
 import { MotusLogoHero } from "./MotusLogo";
 import MagneticButton from "./MagneticButton";
+import VideoPlayer from "./VideoPlayer";
 
 export default function Hero() {
   return (
@@ -55,13 +56,9 @@ export default function Hero() {
       {/* Large video peeking */}
       <div className="relative z-20 mx-auto mt-auto w-full max-w-[1200px] px-5 opacity-0 animate-[fadeInUp_1s_ease-out_0.9s_forwards] sm:px-6">
         <div className="relative overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
-          <video
+          <VideoPlayer
             src="https://assets.motus-pocus.com/MOTUS_First_Showreel_Ever.webm"
             className="aspect-video w-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
           />
         </div>
       </div>

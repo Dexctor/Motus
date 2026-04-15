@@ -100,40 +100,31 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Growth graph curve animating on hover */
+/* Growth graph — angular lines with arrow (like a stock chart going up) */
 function GraphIcon({ hovered }: { hovered: boolean }) {
   return (
     <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
-      {/* Baseline */}
-      <line x1="6" y1="40" x2="42" y2="40" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
-      <line x1="6" y1="6" x2="6" y2="40" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
-      {/* Growth curve */}
-      <motion.path
-        d="M6 36C12 36 16 32 20 28C24 24 28 16 34 12L42 8"
+      {/* Angular growth line: down-up-down-UP pattern */}
+      <motion.polyline
+        points="4,38 14,28 20,34 30,18 42,8"
         stroke="#2bf2d1"
         strokeWidth="2.5"
         strokeLinecap="round"
+        strokeLinejoin="round"
         fill="none"
-        animate={{ pathLength: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.4 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        animate={{ pathLength: hovered ? 1 : 0.35, opacity: hovered ? 1 : 0.4 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
       />
-      {/* Area fill under curve */}
-      <motion.path
-        d="M6 36C12 36 16 32 20 28C24 24 28 16 34 12L42 8V40H6V36Z"
-        fill="#2bf2d1"
-        animate={{ opacity: hovered ? 0.08 : 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      />
-      {/* Arrow at the end */}
-      <motion.path
-        d="M39 5L42 8L39 11"
+      {/* Arrow head at the end */}
+      <motion.polyline
+        points="36,6 42,8 40,14"
         stroke="#2bf2d1"
-        strokeWidth="2"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -4 }}
-        transition={{ duration: 0.4, delay: 0.5 }}
+        animate={{ opacity: hovered ? 1 : 0, pathLength: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3, delay: 0.5 }}
       />
     </svg>
   );
