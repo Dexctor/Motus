@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
+import { ChartColumnIncreasing } from "lucide-react";
 import useInView from "./useInView";
 
 /* ═══════════════════════════════════════════
@@ -100,46 +101,20 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Conversion: diagonal arrow pointing up-right with a base line */
+/* Conversion: Lucide chart icon with scale animation */
 function GraphIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
-      {/* Base horizontal line */}
-      <motion.line
-        x1="6" y1="42" x2="42" y2="42"
-        stroke="#2bf2d1"
-        strokeWidth="2"
-        strokeLinecap="round"
-        animate={{ opacity: hovered ? 0.5 : 0.2 }}
-        transition={{ duration: 0.3 }}
+    <motion.div
+      animate={{ scale: hovered ? 1.1 : 1, y: hovered ? -2 : 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      <ChartColumnIncreasing
+        size={80}
+        strokeWidth={1.5}
+        className="text-[#2bf2d1] transition-opacity duration-300"
+        style={{ opacity: hovered ? 1 : 0.5 }}
       />
-      {/* Diagonal arrow shaft — from bottom-left to top-right */}
-      <motion.line
-        x1="10" y1="38" x2="38" y2="10"
-        stroke="#2bf2d1"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        animate={{ pathLength: hovered ? 1 : 0.4, opacity: hovered ? 1 : 0.4 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      />
-      {/* Arrow head — two lines forming a V */}
-      <motion.line
-        x1="28" y1="10" x2="38" y2="10"
-        stroke="#2bf2d1"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -4 }}
-        transition={{ duration: 0.3, delay: 0.35 }}
-      />
-      <motion.line
-        x1="38" y1="10" x2="38" y2="20"
-        stroke="#2bf2d1"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : -4 }}
-        transition={{ duration: 0.3, delay: 0.35 }}
-      />
-    </svg>
+    </motion.div>
   );
 }
 
