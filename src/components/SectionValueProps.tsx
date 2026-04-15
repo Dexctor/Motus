@@ -112,7 +112,7 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
             y1: hovered ? b.y1 : 24,
             x2: hovered ? b.x2 : 24,
             y2: hovered ? b.y2 : 24,
-            opacity: hovered ? [0, 1, 0.7] : 0,
+            opacity: hovered ? 0.8 : 0,
           }}
           transition={{
             type: "spring",
