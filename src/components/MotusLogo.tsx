@@ -83,57 +83,58 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         ))}
       </motion.svg>
 
-      {/* Layer 2: Blueprint / wireframe revealed through circular mask
-          Shows construction lines, guides, and outline version of the logo */}
+      {/* Layer 2: Blueprint revealed through circular mask */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-[-20px]"
         style={{
           opacity: isHovering ? 1 : 0,
-          transition: "opacity 0.2s",
-          maskImage: `radial-gradient(circle 90px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 70%)`,
-          WebkitMaskImage: `radial-gradient(circle 90px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 70%)`,
+          transition: "opacity 0.15s",
+          maskImage: `radial-gradient(circle 100px at ${mousePos.x + 20}px ${mousePos.y + 20}px, black 40%, transparent 65%)`,
+          WebkitMaskImage: `radial-gradient(circle 100px at ${mousePos.x + 20}px ${mousePos.y + 20}px, black 40%, transparent 65%)`,
         }}
       >
-        {/* Background: grid + guides behind the logo */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Horizontal guide lines */}
-          <div className="absolute left-0 right-0 top-[15%] h-px bg-white/20" />
-          <div className="absolute left-0 right-0 top-[50%] h-px bg-white/10" />
-          <div className="absolute left-0 right-0 top-[85%] h-px bg-white/20" />
-          {/* Vertical guide lines */}
-          <div className="absolute bottom-0 left-[10%] top-0 w-px bg-white/10" />
-          <div className="absolute bottom-0 left-[30%] top-0 w-px bg-white/10" />
-          <div className="absolute bottom-0 left-[50%] top-0 w-px bg-white/10" />
-          <div className="absolute bottom-0 left-[70%] top-0 w-px bg-white/10" />
-          <div className="absolute bottom-0 left-[90%] top-0 w-px bg-white/10" />
+        {/* Dark backdrop for contrast */}
+        <div className="absolute inset-0 bg-[#0d0d0d]/80" />
+
+        {/* Grid lines */}
+        <div className="absolute inset-[20px] overflow-hidden">
+          {[10, 30, 50, 70, 90].map((pct) => (
+            <div key={`v${pct}`} className="absolute bottom-0 top-0 w-[0.5px] bg-white/20" style={{ left: `${pct}%` }} />
+          ))}
+          {[0, 25, 50, 75, 100].map((pct) => (
+            <div key={`h${pct}`} className="absolute left-0 right-0 h-[0.5px] bg-white/20" style={{ top: `${pct}%` }} />
+          ))}
         </div>
 
-        {/* The logo as white outline (wireframe) */}
+        {/* Wireframe logo — thicker stroke, higher opacity */}
         <svg
-          className="absolute inset-0 h-full w-full"
+          className="absolute inset-[20px] h-[calc(100%-40px)] w-[calc(100%-40px)]"
           fill="none"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 407 75"
         >
           {letters.map((letter) => (
             <path
-              key={`outline-${letter.id}`}
+              key={`wire-${letter.id}`}
               d={letter.d}
               fill="none"
               stroke="white"
-              strokeWidth="0.8"
-              opacity="0.6"
+              strokeWidth="1.5"
+              opacity="0.9"
             />
           ))}
-          {/* Anchor points on letter corners */}
+          {/* Anchor points — bigger and brighter */}
           {[
-            [0, 3], [85, 3], [42, 39], // M
-            [92, 0], [197, 0], [144, 75], // O
-            [199, 3], [264, 3], [231, 74], // T
-            [269, 3], [338, 3], [303, 56], // U
-            [344, 2], [407, 2], [375, 75], // S
+            [0, 3], [85, 3], [42, 39],
+            [92, 0], [197, 0], [144, 37],
+            [199, 3], [264, 3], [231, 74],
+            [269, 3], [338, 3], [303, 56],
+            [344, 2], [407, 2], [375, 75],
           ].map(([cx, cy], i) => (
-            <circle key={`dot-${i}`} cx={cx} cy={cy} r="1.5" fill="white" opacity="0.4" />
+            <g key={`anchor-${i}`}>
+              <circle cx={cx} cy={cy} r="3" fill="none" stroke="white" strokeWidth="0.8" opacity="0.7" />
+              <circle cx={cx} cy={cy} r="1" fill="white" opacity="0.9" />
+            </g>
           ))}
         </svg>
       </div>
