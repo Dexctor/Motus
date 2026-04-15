@@ -11,7 +11,7 @@ import useInView from "./useInView";
 /* Eye icon: opens on hover, closes on leave */
 function EyeIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-10 w-10 sm:h-12 sm:w-12" viewBox="0 0 48 48" fill="none">
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
       {/* Eye outline */}
       <motion.path
         d="M24 14C14 14 7 24 7 24C7 24 14 34 24 34C34 34 41 24 41 24C41 24 34 14 24 14Z"
@@ -56,7 +56,7 @@ function EyeIcon({ hovered }: { hovered: boolean }) {
 /* Lightning with sparks on hover */
 function LightningIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-10 w-10 sm:h-12 sm:w-12" viewBox="0 0 48 48" fill="none">
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
       {/* Main bolt */}
       <motion.path
         d="M26 6L12 26H22L20 42L36 20H26L26 6Z"
@@ -103,7 +103,7 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
 /* Growth graph curve animating on hover */
 function GraphIcon({ hovered }: { hovered: boolean }) {
   return (
-    <svg className="h-10 w-10 sm:h-12 sm:w-12" viewBox="0 0 48 48" fill="none">
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
       {/* Baseline */}
       <line x1="6" y1="40" x2="42" y2="40" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
       <line x1="6" y1="6" x2="6" y2="40" stroke="#2bf2d1" strokeWidth="1.5" opacity="0.3" />
@@ -124,14 +124,24 @@ function GraphIcon({ hovered }: { hovered: boolean }) {
         animate={{ opacity: hovered ? 0.08 : 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       />
-      {/* Dot at the end */}
+      {/* Arrow at the end */}
+      <motion.path
+        d="M39 5L42 8L39 11"
+        stroke="#2bf2d1"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+        animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -4 }}
+        transition={{ duration: 0.4, delay: 0.5 }}
+      />
       <motion.circle
         cx="42"
         cy="8"
-        r="3"
+        r="2.5"
         fill="#2bf2d1"
         animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0 }}
-        transition={{ duration: 0.3, delay: 0.5 }}
+        transition={{ duration: 0.3, delay: 0.6 }}
       />
     </svg>
   );
@@ -171,12 +181,12 @@ function ValueCard({
       </div>
 
       {/* Title */}
-      <h3 className="mb-2 text-[18px] font-bold text-white sm:mb-3 sm:text-[20px]">
+      <h3 className="mb-2 text-[22px] font-bold text-white sm:mb-3 sm:text-[26px]">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="max-w-[240px] text-[13px] leading-relaxed text-neutral-500 transition-colors duration-300 group-hover:text-neutral-400 sm:text-[14px]">
+      <p className="max-w-[280px] text-[14px] leading-relaxed text-neutral-500 transition-colors duration-300 group-hover:text-neutral-400 sm:text-[16px]">
         {description}
       </p>
     </motion.div>

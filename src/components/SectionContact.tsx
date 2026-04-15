@@ -1,21 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import useInView from "./useInView";
 
 export default function SectionContact() {
   const { ref, inView } = useInView();
-
-  /* Load Calendly widget script */
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact" ref={ref}>
@@ -49,7 +37,7 @@ export default function SectionContact() {
         >
           <div
             className="calendly-inline-widget h-full w-full"
-            data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1"
+            data-url="https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr"
             style={{
               height: "100%",
               filter: "invert(1) hue-rotate(180deg)",
