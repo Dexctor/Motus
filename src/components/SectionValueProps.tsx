@@ -100,58 +100,31 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Bar chart with growing bars + trend arrow */
+/* Trend line going up with arrow — stroke style matching other icons */
 function GraphIcon({ hovered }: { hovered: boolean }) {
-  const bars = [
-    { x: 8, h: 10, delay: 0 },
-    { x: 17, h: 18, delay: 0.08 },
-    { x: 26, h: 14, delay: 0.16 },
-    { x: 35, h: 26, delay: 0.24 },
-    { x: 44, h: 34, delay: 0.32 },
-  ];
-
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 56 48" fill="none">
-      {/* X axis */}
-      <line x1="4" y1="44" x2="54" y2="44" stroke="#2bf2d1" strokeWidth="1" opacity="0.25" />
-
-      {/* Bars */}
-      {bars.map((bar, i) => (
-        <motion.rect
-          key={i}
-          x={bar.x}
-          width="6"
-          rx="1.5"
-          fill="#2bf2d1"
-          animate={{
-            y: hovered ? 44 - bar.h : 44 - bar.h * 0.3,
-            height: hovered ? bar.h : bar.h * 0.3,
-            opacity: hovered ? 0.85 : 0.25,
-          }}
-          transition={{ duration: 0.5, delay: bar.delay, ease: "easeOut" }}
-        />
-      ))}
-
-      {/* Trend arrow going up — appears on hover */}
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 48 48" fill="none">
+      {/* Thick angular trend line going up */}
       <motion.polyline
-        points="8,38 20,30 30,34 40,22 52,10"
+        points="4,40 16,30 24,36 36,16 44,8"
         stroke="#2bf2d1"
-        strokeWidth="1.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ pathLength: hovered ? 1 : 0, opacity: hovered ? 0.6 : 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        animate={{ pathLength: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.4 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       />
+      {/* Big arrow head */}
       <motion.polyline
-        points="47,8 52,10 50,15"
+        points="38,4 44,8 40,14"
         stroke="#2bf2d1"
-        strokeWidth="1.5"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
-        animate={{ opacity: hovered ? 0.6 : 0 }}
-        transition={{ duration: 0.3, delay: 0.7 }}
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
       />
     </svg>
   );
