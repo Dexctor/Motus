@@ -83,47 +83,35 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         ))}
       </motion.svg>
 
-      {/* Layer 2: Blueprint revealed through circular mask */}
+      {/* Layer 2: Wireframe revealed through circular mask — no background */}
       <div
-        className="absolute inset-[-20px]"
+        className="absolute inset-0"
         style={{
           opacity: isHovering ? 1 : 0,
           transition: "opacity 0.15s",
-          maskImage: `radial-gradient(circle 100px at ${mousePos.x + 20}px ${mousePos.y + 20}px, black 40%, transparent 65%)`,
-          WebkitMaskImage: `radial-gradient(circle 100px at ${mousePos.x + 20}px ${mousePos.y + 20}px, black 40%, transparent 65%)`,
+          maskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 60%)`,
+          WebkitMaskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 60%)`,
         }}
       >
-        {/* Dark backdrop for contrast */}
-        <div className="absolute inset-0 bg-[#0d0d0d]/80" />
-
-        {/* Grid lines */}
-        <div className="absolute inset-[20px] overflow-hidden">
-          {[10, 30, 50, 70, 90].map((pct) => (
-            <div key={`v${pct}`} className="absolute bottom-0 top-0 w-[0.5px] bg-white/20" style={{ left: `${pct}%` }} />
-          ))}
-          {[0, 25, 50, 75, 100].map((pct) => (
-            <div key={`h${pct}`} className="absolute left-0 right-0 h-[0.5px] bg-white/20" style={{ top: `${pct}%` }} />
-          ))}
-        </div>
-
-        {/* Wireframe logo — thicker stroke, higher opacity */}
         <svg
-          className="absolute inset-[20px] h-[calc(100%-40px)] w-[calc(100%-40px)]"
+          className="absolute inset-0 h-full w-full"
           fill="none"
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 407 75"
         >
+          {/* Wireframe outline of each letter */}
           {letters.map((letter) => (
             <path
               key={`wire-${letter.id}`}
               d={letter.d}
               fill="none"
               stroke="white"
-              strokeWidth="1.5"
-              opacity="0.9"
+              strokeWidth="1.2"
+              strokeDasharray="4 3"
+              opacity="0.7"
             />
           ))}
-          {/* Anchor points — bigger and brighter */}
+          {/* Anchor points at letter vertices */}
           {[
             [0, 3], [85, 3], [42, 39],
             [92, 0], [197, 0], [144, 37],
@@ -131,11 +119,18 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
             [269, 3], [338, 3], [303, 56],
             [344, 2], [407, 2], [375, 75],
           ].map(([cx, cy], i) => (
-            <g key={`anchor-${i}`}>
-              <circle cx={cx} cy={cy} r="3" fill="none" stroke="white" strokeWidth="0.8" opacity="0.7" />
-              <circle cx={cx} cy={cy} r="1" fill="white" opacity="0.9" />
+            <g key={`a-${i}`}>
+              <circle cx={cx} cy={cy} r="2.5" fill="none" stroke="white" strokeWidth="0.6" opacity="0.5" />
+              <circle cx={cx} cy={cy} r="0.8" fill="white" opacity="0.8" />
             </g>
           ))}
+          {/* Horizontal + vertical construction lines through letter centers */}
+          <line x1="0" y1="37.5" x2="407" y2="37.5" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
+          <line x1="42" y1="0" x2="42" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
+          <line x1="144" y1="0" x2="144" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
+          <line x1="231" y1="0" x2="231" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
+          <line x1="303" y1="0" x2="303" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
+          <line x1="375" y1="0" x2="375" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
         </svg>
       </div>
     </div>
