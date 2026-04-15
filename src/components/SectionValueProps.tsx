@@ -49,14 +49,14 @@ function EyeIcon({ hovered }: { hovered: boolean }) {
   );
 }
 
-/* Lightning with 4 burst lines on hover + zoom bounce */
+/* Lightning with explosive burst on hover */
 function LightningIcon({ hovered }: { hovered: boolean }) {
-  // 4 burst lines radiating from center (top-right, bottom-right, bottom-left, top-left)
+  // 4 burst lines — start far from the bolt, shoot outward on hover
   const bursts = [
-    { x1: 30, y1: 18, x2: 38, y2: 10 },  // top-right
-    { x1: 30, y1: 30, x2: 38, y2: 38 },  // bottom-right
-    { x1: 18, y1: 30, x2: 10, y2: 38 },  // bottom-left
-    { x1: 18, y1: 18, x2: 10, y2: 10 },  // top-left
+    { x1: 34, y1: 10, x2: 44, y2: 2 },   // top-right
+    { x1: 36, y1: 32, x2: 46, y2: 40 },  // bottom-right
+    { x1: 12, y1: 32, x2: 2, y2: 40 },   // bottom-left
+    { x1: 14, y1: 10, x2: 4, y2: 2 },    // top-left
   ];
 
   return (
@@ -64,9 +64,29 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
       className="h-20 w-20 sm:h-24 sm:w-24"
       viewBox="0 0 48 48"
       fill="none"
-      animate={{ scale: hovered ? 1.12 : 1 }}
-      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+      style={{ overflow: "visible" }}
+      animate={{ scale: hovered ? [1, 1.2, 1.08] : 1 }}
+      transition={hovered
+        ? { duration: 0.4, times: [0, 0.4, 1], ease: "easeOut" }
+        : { type: "spring", stiffness: 300, damping: 20 }
+      }
     >
+      {/* Shockwave ring — expands and fades on hover */}
+      <motion.circle
+        cx="24"
+        cy="24"
+        r="12"
+        stroke="#2bf2d1"
+        strokeWidth="1.5"
+        fill="none"
+        animate={{
+          r: hovered ? [12, 28] : 12,
+          opacity: hovered ? [0.5, 0] : 0,
+          strokeWidth: hovered ? [1.5, 0.5] : 1.5,
+        }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      />
+
       {/* Main bolt */}
       <motion.path
         d="M26 6L12 26H22L20 42L36 20H26L26 6Z"
@@ -74,30 +94,31 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
         strokeWidth="2"
         strokeLinejoin="round"
         fill="none"
-        animate={{ fill: hovered ? "rgba(43,242,209,0.15)" : "rgba(43,242,209,0)" }}
-        transition={{ duration: 0.3 }}
+        animate={{
+          fill: hovered ? "rgba(43,242,209,0.2)" : "rgba(43,242,209,0)",
+        }}
+        transition={{ duration: 0.2 }}
       />
-      {/* 4 burst lines — spread outward on hover */}
+
+      {/* 4 burst lines — explode outward from bolt */}
       {bursts.map((b, i) => (
         <motion.line
           key={i}
-          x1={b.x1}
-          y1={b.y1}
-          x2={b.x1}
-          y2={b.y1}
           stroke="#2bf2d1"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           animate={{
-            x2: hovered ? b.x2 : b.x1,
-            y2: hovered ? b.y2 : b.y1,
-            opacity: hovered ? 0.8 : 0,
+            x1: hovered ? b.x1 : 24,
+            y1: hovered ? b.y1 : 24,
+            x2: hovered ? b.x2 : 24,
+            y2: hovered ? b.y2 : 24,
+            opacity: hovered ? [0, 1, 0.7] : 0,
           }}
           transition={{
             type: "spring",
-            stiffness: 300,
-            damping: 15,
-            delay: i * 0.05,
+            stiffness: 500,
+            damping: 14,
+            delay: i * 0.04,
           }}
         />
       ))}
