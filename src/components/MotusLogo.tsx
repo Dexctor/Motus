@@ -66,7 +66,12 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
       className={`relative cursor-pointer ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        // Instantly jump springs to current position so no lingering animation
+        smoothX.jump(mouseX.get());
+        smoothY.jump(mouseY.get());
+      }}
     >
       {/* Layer 1: Normal solid white logo — masked inversely on hover */}
       <motion.div
