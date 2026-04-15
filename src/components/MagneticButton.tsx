@@ -1,32 +1,54 @@
 "use client";
 
-import { useRef, useState, ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState, useEffect, ReactNode } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
-export default function MagneticButton({ children }: { children: ReactNode }) {
+export default function MagneticButton({
+  children,
+  strength = 0.38,
+}: {
+  children: ReactNode;
+  strength?: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [enabled, setEnabled] = useState(false);
 
-  const handleMouse = (e: React.MouseEvent) => {
-    const { clientX, clientY } = e;
-    const { height, width, left, top } = ref.current!.getBoundingClientRect();
-    const x = (clientX - (left + width / 2)) * 0.3;
-    const y = (clientY - (top + height / 2)) * 0.3;
-    setPosition({ x, y });
+  // Motion values for smooth interpolation
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Spring that mimics gsap elastic.out(1, 0.45) feel
+  const springX = useSpring(x, { damping: 12, stiffness: 200, mass: 0.2 });
+  const springY = useSpring(y, { damping: 12, stiffness: 200, mass: 0.2 });
+
+  // Respect accessibility — disable on touch or reduced motion
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(hover: none)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setEnabled(true);
+  }, []);
+
+  const handleMove = (e: React.MouseEvent) => {
+    if (!enabled || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    x.set((e.clientX - cx) * strength);
+    y.set((e.clientY - cy) * strength);
   };
 
-  const reset = () => {
-    setPosition({ x: 0, y: 0 });
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
   };
 
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 400, damping: 20, mass: 0.1 }}
-      style={{ position: "relative" }}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{ x: springX, y: springY, display: "inline-block" }}
     >
       {children}
     </motion.div>
