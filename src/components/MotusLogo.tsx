@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import svgPaths from "./svg-paths";
 
 const letters = [
@@ -38,16 +38,26 @@ export default function MotusLogo({ className = "" }: { className?: string }) {
 /* ─── Hero logo: mask reveal with skeleton on hover ─── */
 export function MotusLogoHero({ className = "" }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+
+  // Raw mouse position
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Springy delayed position — follows mouse with soft lag
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  // Mask templates using spring values — radius 120px (1.5x bigger)
+  const maskReveal = useMotionTemplate`radial-gradient(circle 120px at ${smoothX}px ${smoothY}px, black 30%, transparent 60%)`;
+  const maskHide = useMotionTemplate`radial-gradient(circle 120px at ${smoothX}px ${smoothY}px, transparent 30%, black 60%)`;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
   };
 
   return (
@@ -59,11 +69,11 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* Layer 1: Normal solid white logo — masked inversely on hover */}
-      <div
+      <motion.div
         className="absolute inset-0"
         style={isHovering ? {
-          maskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
-          WebkitMaskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, transparent 30%, black 60%)`,
+          maskImage: maskHide,
+          WebkitMaskImage: maskHide,
         } : undefined}
       >
         <motion.svg
@@ -89,21 +99,21 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
             />
           ))}
         </motion.svg>
-      </div>
+      </motion.div>
 
       {/* Spacer to give the container its size (since both layers are absolute) */}
       <svg className="invisible h-full w-full" viewBox="0 0 407 75" preserveAspectRatio="xMidYMid meet">
         <rect width="407" height="75" fill="none" />
       </svg>
 
-      {/* Layer 2: Wireframe revealed through circular mask */}
-      <div
+      {/* Layer 2: Wireframe revealed through circular mask with spring delay */}
+      <motion.div
         className="absolute inset-0"
         style={{
           opacity: isHovering ? 1 : 0,
           transition: "opacity 0.15s",
-          maskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 60%)`,
-          WebkitMaskImage: `radial-gradient(circle 80px at ${mousePos.x}px ${mousePos.y}px, black 30%, transparent 60%)`,
+          maskImage: maskReveal,
+          WebkitMaskImage: maskReveal,
         }}
       >
         <svg
@@ -145,7 +155,7 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
           <line x1="303" y1="0" x2="303" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
           <line x1="375" y1="0" x2="375" y2="75" stroke="white" strokeWidth="0.3" opacity="0.15" strokeDasharray="2 4" />
         </svg>
-      </div>
+      </motion.div>
     </div>
   );
 }
