@@ -45,10 +45,10 @@ export default function Footer() {
 
           {/* Right — legal links */}
           <div className="flex items-center justify-center gap-5 sm:gap-6">
-            <a href="#" className="text-[12px] text-[#dedede]/30 transition-colors hover:text-[#dedede]/50 sm:text-[13px]">
+            <a href="/mentions-legales" className="text-[12px] text-[#dedede]/30 transition-colors hover:text-[#dedede]/50 sm:text-[13px]">
               Mentions legales
             </a>
-            <a href="#" className="text-[12px] text-[#dedede]/30 transition-colors hover:text-[#dedede]/50 sm:text-[13px]">
+            <a href="/confidentialite" className="text-[12px] text-[#dedede]/30 transition-colors hover:text-[#dedede]/50 sm:text-[13px]">
               Confidentialite
             </a>
           </div>

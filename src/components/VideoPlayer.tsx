@@ -30,6 +30,7 @@ export default function VideoPlayer({
         ref={videoRef}
         src={src}
         className={className}
+        aria-label="Video de presentation"
         autoPlay
         muted
         loop

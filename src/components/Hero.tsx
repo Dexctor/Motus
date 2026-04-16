@@ -23,21 +23,21 @@ export default function Hero() {
         </div>
 
         {/* Subtitle */}
-        <h1
+        <p
           className="mb-4 text-[15px] text-[#dedede]/50 opacity-0 animate-[fadeInUp_0.7s_ease-out_0.25s_forwards] sm:mb-6 sm:text-[18px] lg:text-[24px]"
           style={{ fontFamily: "var(--font-manrope), sans-serif", fontWeight: 400, letterSpacing: "0.02em" }}
         >
           Montage video &amp; Motion Design pour SaaS B2B
-        </h1>
+        </p>
 
-        {/* Headline */}
-        <p
+        {/* Headline — this is the real h1 for SEO */}
+        <h1
           className="mx-auto mb-5 max-w-[750px] text-[22px] text-white opacity-0 animate-[fadeInUp_0.7s_ease-out_0.4s_forwards] sm:mb-10 sm:text-[30px] lg:text-[42px]"
           style={{ fontWeight: 700, lineHeight: 1.25 }}
         >
           Votre produit compris en{" "}
           <span className="text-[#2bf2d1]">moins de 30 secondes</span>
-        </p>
+        </h1>
 
         {/* CTA */}
         <div className="opacity-0 animate-[fadeInUp_0.7s_ease-out_0.6s_forwards]">

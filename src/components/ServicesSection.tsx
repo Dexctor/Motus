@@ -66,7 +66,7 @@ function ServiceLabel({ title }: { title: string }) {
       className="mb-8 flex items-center gap-3 sm:mb-10"
     >
       <div className="h-px w-4 bg-[#2bf2d1]/30" />
-      <span className="text-[20px] font-semibold text-white/80 sm:text-[24px] lg:text-[28px]">{title}</span>
+      <h3 className="text-[20px] font-semibold text-white/80 sm:text-[24px] lg:text-[28px]">{title}</h3>
     </motion.div>
   );
 }
