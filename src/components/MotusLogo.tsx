@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import svgPaths from "./svg-paths";
 
 const letters = [
@@ -40,8 +41,33 @@ export default function MotusLogo({ className = "" }: { className?: string }) {
    Result: looks like someone is writing/drawing the logo
 */
 export function MotusLogoHero({ className = "" }: { className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 180, mass: 0.6 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 180, mass: 0.6 });
+  const rawOpacity = useMotionValue(0);
+  const opacity = useSpring(rawOpacity, { damping: 30, stiffness: 300 });
+
+  const mask = useMotionTemplate`radial-gradient(circle 100px at ${smoothX}px ${smoothY}px, black 0%, transparent 100%)`;
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
   return (
-    <div className={className}>
+    <div
+      ref={containerRef}
+      className={`relative cursor-pointer ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => rawOpacity.set(1)}
+      onMouseLeave={() => rawOpacity.set(0)}
+    >
+      {/* Layer 1: Stroke draw + fill animation */}
       <svg
         className="h-full w-full"
         fill="none"
@@ -51,10 +77,8 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         {letters.map((letter, i) => {
           const strokeDelay = i * 0.25;
           const fillDelay = strokeDelay + 0.6;
-
           return (
             <g key={letter.id}>
-              {/* Stroke outline — draws itself */}
               <motion.path
                 d={letter.d}
                 stroke="#dedede"
@@ -67,7 +91,6 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
                   opacity: { delay: strokeDelay, duration: 0.1 },
                 }}
               />
-              {/* Fill — fades in after stroke completes */}
               <motion.path
                 d={letter.d}
                 fill="#dedede"
@@ -79,6 +102,46 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
           );
         })}
       </svg>
+
+      {/* Layer 2: Wireframe skeleton revealed on hover via circular mask */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ opacity, maskImage: mask, WebkitMaskImage: mask }}
+      >
+        <svg
+          className="h-full w-full"
+          fill="none"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 407 75"
+          style={{ overflow: "visible" }}
+        >
+          {/* Outline of each letter — dashed wireframe */}
+          {letters.map((letter) => (
+            <path
+              key={`w-${letter.id}`}
+              d={letter.d}
+              fill="none"
+              stroke="white"
+              strokeWidth="1"
+              strokeDasharray="4 3"
+              opacity="0.6"
+            />
+          ))}
+          {/* Anchor dots at key vertices */}
+          {[
+            [0, 3], [85, 3], [42, 39],
+            [92, 0], [197, 0], [144, 37],
+            [199, 3], [264, 3], [231, 74],
+            [269, 3], [338, 3], [303, 56],
+            [344, 2], [407, 2], [375, 75],
+          ].map(([cx, cy], i) => (
+            <g key={`a-${i}`}>
+              <circle cx={cx} cy={cy} r="2" fill="none" stroke="white" strokeWidth="0.5" opacity="0.4" />
+              <circle cx={cx} cy={cy} r="0.7" fill="white" opacity="0.7" />
+            </g>
+          ))}
+        </svg>
+      </motion.div>
     </div>
   );
 }
