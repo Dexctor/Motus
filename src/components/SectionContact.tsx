@@ -1,53 +1,13 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (opts: {
-        url: string;
-        parentElement: HTMLElement;
-      }) => void;
-    };
-  }
-}
+import MagneticButton from "./MagneticButton";
 
 export default function SectionContact() {
-  const calRef = useRef<HTMLDivElement>(null);
-  const initedRef = useRef(false);
-
-  useEffect(() => {
-    function initCalendly() {
-      if (initedRef.current || !calRef.current || !window.Calendly) return;
-      initedRef.current = true;
-      window.Calendly.initInlineWidget({
-        url: "https://calendly.com/motuspocus-lab/30min?hide_gdpr_banner=1&background_color=171717&text_color=dedede&primary_color=2bf2d1&locale=fr",
-        parentElement: calRef.current,
-      });
-    }
-
-    // If script already loaded
-    if (window.Calendly) {
-      initCalendly();
-      return;
-    }
-
-    // Load script then init
-    const script = document.createElement("script");
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    script.onload = initCalendly;
-    document.head.appendChild(script);
-  }, []);
-
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact">
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="h-[250px] w-[300px] rounded-full bg-[#2bf2d1]/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
       </div>
 
-      <div className="relative mx-auto max-w-[900px] text-center">
+      <div className="relative mx-auto max-w-[620px] text-center">
         <h2
           className="mb-3 text-[24px] text-white sm:mb-4 sm:text-[34px] lg:text-[44px]"
           style={{ fontWeight: 700, lineHeight: 1.2 }}
@@ -64,17 +24,23 @@ export default function SectionContact() {
           propose une solution adaptee. Sans engagement.
         </p>
 
-        {/* Calendly container — init programmatically */}
-        <div
-          ref={calRef}
-          className="mx-auto overflow-hidden rounded-2xl border border-white/[0.06]"
-          style={{
-            width: "100%",
-            maxWidth: "480px",
-            height: "1000px",
-            filter: "invert(1) hue-rotate(180deg)",
-          }}
-        />
+        {/* CTA — opens Calendly in new tab */}
+        <MagneticButton>
+          <a
+            href="https://calendly.com/motuspocus-lab/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="moving-border-wrap"
+          >
+            <span className="moving-border-spinner" />
+            <span className="btn-primary" style={{ padding: "16px 36px", fontSize: "16px" }}>
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Reserver un appel
+            </span>
+          </a>
+        </MagneticButton>
 
         {/* Trust signals */}
         <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-10 sm:gap-6 sm:text-[13px]">
