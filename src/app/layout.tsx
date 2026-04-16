@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Syne, Manrope } from "next/font/google";
+import localFont from "next/font/local";
 import JsonLd from "@/components/JsonLd";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
+const eudoxus = localFont({
+  src: [
+    { path: "../fonts/EudoxusSans-Light.woff2", weight: "300", style: "normal" },
+    { path: "../fonts/EudoxusSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/EudoxusSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/EudoxusSans-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/EudoxusSans-ExtraBold.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--font-eudoxus",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -81,7 +83,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${syne.variable} ${manrope.variable} h-full antialiased`}
+      className={`${eudoxus.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <JsonLd />
