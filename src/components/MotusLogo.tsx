@@ -50,7 +50,10 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
   const rawOpacity = useMotionValue(0);
   const opacity = useSpring(rawOpacity, { damping: 30, stiffness: 300 });
 
-  const mask = useMotionTemplate`radial-gradient(circle 100px at ${smoothX}px ${smoothY}px, black 0%, transparent 100%)`;
+  // Mask to reveal wireframe
+  const maskReveal = useMotionTemplate`radial-gradient(circle 100px at ${smoothX}px ${smoothY}px, black 0%, transparent 100%)`;
+  // Inverse mask to hide solid fill where wireframe shows
+  const maskHide = useMotionTemplate`radial-gradient(circle 100px at ${smoothX}px ${smoothY}px, transparent 0%, black 100%)`;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -67,46 +70,53 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
       onMouseEnter={() => rawOpacity.set(1)}
       onMouseLeave={() => rawOpacity.set(0)}
     >
-      {/* Layer 1: Stroke draw + fill animation */}
-      <svg
-        className="h-full w-full"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-        viewBox="0 0 407 75"
+      {/* Layer 1: Solid logo — inverse masked on hover (white disappears where cursor is) */}
+      <motion.div
+        style={{
+          maskImage: maskHide,
+          WebkitMaskImage: maskHide,
+        }}
       >
-        {letters.map((letter, i) => {
-          const strokeDelay = i * 0.25;
-          const fillDelay = strokeDelay + 0.6;
-          return (
-            <g key={letter.id}>
-              <motion.path
-                d={letter.d}
-                stroke="#dedede"
-                strokeWidth="1"
-                fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{
-                  pathLength: { delay: strokeDelay, duration: 0.8, ease: "easeInOut" },
-                  opacity: { delay: strokeDelay, duration: 0.1 },
-                }}
-              />
-              <motion.path
-                d={letter.d}
-                fill="#dedede"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: fillDelay, duration: 0.5, ease: "easeOut" }}
-              />
-            </g>
-          );
-        })}
-      </svg>
+        <svg
+          className="h-full w-full"
+          fill="none"
+          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 407 75"
+        >
+          {letters.map((letter, i) => {
+            const strokeDelay = i * 0.25;
+            const fillDelay = strokeDelay + 0.6;
+            return (
+              <g key={letter.id}>
+                <motion.path
+                  d={letter.d}
+                  stroke="#dedede"
+                  strokeWidth="1"
+                  fill="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{
+                    pathLength: { delay: strokeDelay, duration: 0.8, ease: "easeInOut" },
+                    opacity: { delay: strokeDelay, duration: 0.1 },
+                  }}
+                />
+                <motion.path
+                  d={letter.d}
+                  fill="#dedede"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: fillDelay, duration: 0.5, ease: "easeOut" }}
+                />
+              </g>
+            );
+          })}
+        </svg>
+      </motion.div>
 
-      {/* Layer 2: Wireframe skeleton revealed on hover via circular mask */}
+      {/* Layer 2: Wireframe revealed where cursor is */}
       <motion.div
         className="absolute inset-0"
-        style={{ opacity, maskImage: mask, WebkitMaskImage: mask }}
+        style={{ opacity, maskImage: maskReveal, WebkitMaskImage: maskReveal }}
       >
         <svg
           className="h-full w-full"
