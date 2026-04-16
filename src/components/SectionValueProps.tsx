@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import useInView from "./useInView";
 
@@ -173,14 +173,23 @@ function ValueCard({
   IconComponent,
   index,
   inView,
+  idleAsHovered = false,
 }: {
   title: string;
   description: ReactNode;
   IconComponent: React.ComponentType<{ hovered: boolean }>;
   index: number;
   inView: boolean;
+  idleAsHovered?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(hover: none)").matches);
+  }, []);
+
+  const effectiveHovered = hovered || (isMobile && idleAsHovered);
 
   return (
     <motion.div
@@ -193,7 +202,7 @@ function ValueCard({
     >
       {/* Icon */}
       <div className="mb-6 sm:mb-8">
-        <IconComponent hovered={hovered} />
+        <IconComponent hovered={effectiveHovered} />
       </div>
 
       {/* Title */}
@@ -234,6 +243,7 @@ const cards = [
     description: (
       <>Vos visiteurs curieux deviennent des <span className="font-semibold text-white">utilisateurs</span> convaincus</>
     ),
+    idleAsHovered: true,
   },
 ];
 
@@ -267,6 +277,7 @@ export default function SectionValueProps() {
               IconComponent={card.IconComponent}
               index={i}
               inView={inView}
+              idleAsHovered={card.idleAsHovered}
             />
           ))}
         </div>
