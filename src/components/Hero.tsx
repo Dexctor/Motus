@@ -27,7 +27,7 @@ export default function Hero() {
           className="mb-4 text-[15px] text-[#dedede]/50 opacity-0 animate-[fadeInUp_0.7s_ease-out_0.25s_forwards] sm:mb-6 sm:text-[18px] lg:text-[24px]"
           style={{ fontWeight: 400, letterSpacing: "0.02em" }}
         >
-          Montage video &amp; Motion Design pour SaaS B2B
+          Montage vidéo &amp; Motion Design pour SaaS B2B
         </p>
 
         {/* Headline — this is the real h1 for SEO */}

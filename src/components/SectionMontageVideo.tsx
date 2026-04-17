@@ -14,7 +14,7 @@ export default function SectionMontageVideo() {
           <div className="flex w-full items-center justify-center gap-[10px]">
             <ArrowIcon />
             <h2 className="w-full font-display text-[16px] text-light-gray">
-              Montage Video
+              Montage Vidéo
             </h2>
           </div>
 

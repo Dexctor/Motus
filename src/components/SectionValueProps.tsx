@@ -256,7 +256,7 @@ const cards = [
     IconComponent: LightningIcon,
     title: "Impact",
     description: (
-      <>Des videos qui <span className="font-semibold text-white">captivent</span> et marquent les esprits</>
+      <>Des vidéos qui <span className="font-semibold text-white">captivent</span> et marquent les esprits</>
     ),
   },
   {
@@ -286,7 +286,7 @@ export default function SectionValueProps() {
           className="mb-12 text-center sm:mb-16"
         >
           <h2 className="text-[26px] text-white sm:text-[34px] lg:text-[40px]" style={{ fontWeight: 700, lineHeight: 1.15 }}>
-            Ce qui fait la <span className="text-[#2bf2d1]">difference</span>
+            Ce qui fait la <span className="text-[#2bf2d1]">différence</span>
           </h2>
         </motion.div>
 

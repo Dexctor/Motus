@@ -5,11 +5,11 @@ export default function SellText() {
         <p className="text-[40px] leading-tight">
           Donnez du{" "}
           <span className="font-semibold italic text-[#2bf2d1]">mouvement</span>{" "}
-          a vos idees.
+          a vos idées.
         </p>
         <p className="text-[40px] leading-tight">
-          Choisissez le format qui correspond a{" "}
-          <span className="font-bold italic text-[#2bf2d1]">votre priorite.</span>
+          Choisissez le format qui correspond à{" "}
+          <span className="font-bold italic text-[#2bf2d1]">votre priorité.</span>
         </p>
       </div>
     </section>

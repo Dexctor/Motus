@@ -20,7 +20,7 @@ export default function SectionContact() {
           className="mx-auto mb-10 max-w-[450px] text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
           style={{ lineHeight: 1.7 }}
         >
-          Reservez un creneau de 30 minutes. On ecoute vos besoins, on vous
+          Réservez un créneau de 30 minutes. On ecoute vos besoins, on vous
           propose une solution adaptee. Sans engagement.
         </p>
 
