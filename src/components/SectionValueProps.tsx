@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import useInView from "./useInView";
 
@@ -184,15 +184,37 @@ function ValueCard({
 }) {
   const [hovered, setHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [triggered, setTriggered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMobile(window.matchMedia("(hover: none)").matches);
   }, []);
 
-  const effectiveHovered = hovered || (isMobile && idleAsHovered);
+  // On mobile: trigger animation once when card reaches center of screen
+  useEffect(() => {
+    if (!isMobile || triggered) return;
+    const el = cardRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTriggered(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "-35% 0px -35% 0px" } // triggers when card is roughly centered
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [isMobile, triggered]);
+
+  // On mobile: once triggered, stays true forever (no going back)
+  const effectiveHovered = hovered || (isMobile && (triggered || idleAsHovered));
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.1 + index * 0.15, ease: "easeOut" }}
