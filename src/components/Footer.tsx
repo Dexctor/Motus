@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
 
           {/* Center — social links */}
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex flex-col items-center gap-2 sm:items-start">
             <p className="text-[11px] uppercase tracking-wider text-[#dedede]/25 sm:text-[12px]">
               Suivez-nous sur
             </p>
