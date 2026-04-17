@@ -83,7 +83,7 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 text-center sm:mb-20 lg:mb-24"
+          className="mb-16 text-left sm:mb-20 sm:text-center lg:mb-24"
         >
           <h2 className="text-[22px] text-white sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.15 }}>
             Nos services

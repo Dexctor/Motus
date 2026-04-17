@@ -141,7 +141,7 @@ export default function SectionPricing() {
       </div>
 
       <div className="relative mx-auto max-w-[1100px]">
-        <div className={`mb-4 text-center transition-all duration-700 sm:mb-6 ${inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
+        <div className={`mb-4 text-left transition-all duration-700 sm:mb-6 sm:text-center ${inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
           <h2 className="mb-2 text-[22px] text-white sm:mb-3 sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.2 }}>
             Donnez du <span className="text-[#2bf2d1]">mouvement</span> à vos idées
           </h2>

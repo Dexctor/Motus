@@ -247,7 +247,7 @@ export default function SectionValueProps() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-12 text-center sm:mb-16"
+          className="mb-12 text-left sm:mb-16 sm:text-center"
         >
           <h2 className="text-[22px] text-white sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.15 }}>
             Ce qui fait la <span className="text-[#2bf2d1]">différence</span>

@@ -9,7 +9,7 @@ export default function SectionContact() {
 
       <div className="relative mx-auto max-w-[620px] text-left">
         <h2
-          className="mb-3 whitespace-nowrap text-[22px] text-white sm:mb-4 sm:text-[28px] lg:text-[36px]"
+          className="mb-3 text-[22px] text-white sm:mb-4 sm:text-[28px] lg:text-[36px]"
           style={{ fontWeight: 600, lineHeight: 1.2 }}
         >
           Parlons ensemble de{" "}
@@ -17,7 +17,7 @@ export default function SectionContact() {
         </h2>
 
         <p
-          className="mb-10 whitespace-nowrap text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
+          className="mb-10 text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
           style={{ lineHeight: 1.7 }}
         >
           Réservez un créneau de 30 minutes.<br />
