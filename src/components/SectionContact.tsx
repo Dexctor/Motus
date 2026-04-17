@@ -7,24 +7,26 @@ export default function SectionContact() {
         <div className="h-[250px] w-[300px] rounded-full bg-[#2bf2d1]/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
       </div>
 
-      <div className="relative mx-auto max-w-[620px] text-center">
+      <div className="relative mx-auto max-w-[620px] text-left">
         <h2
-          className="mb-3 text-[24px] text-white sm:mb-4 sm:text-[34px] lg:text-[44px]"
-          style={{ fontWeight: 700, lineHeight: 1.2 }}
+          className="mb-3 whitespace-nowrap text-[22px] text-white sm:mb-4 sm:text-[28px] lg:text-[36px]"
+          style={{ fontWeight: 600, lineHeight: 1.2 }}
         >
           Parlons ensemble de{" "}
-          <span className="italic text-[#2bf2d1]">votre projet</span>
+          <span className="text-[#2bf2d1]">votre projet</span>
         </h2>
 
         <p
-          className="mx-auto mb-10 max-w-[450px] text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
+          className="mb-10 whitespace-nowrap text-[14px] text-[#dedede]/40 sm:mb-12 sm:text-[15px] lg:text-[16px]"
           style={{ lineHeight: 1.7 }}
         >
-          Réservez un créneau de 30 minutes. On ecoute vos besoins, on vous
-          propose une solution adaptee. Sans engagement.
+          Réservez un créneau de 30 minutes.<br />
+          On écoute vos besoins et on vous propose une solution adaptée.<br />
+          Sans engagement.
         </p>
 
         {/* CTA — opens Calendly in new tab */}
+        <div className="flex justify-center">
         <MagneticButton>
           <a
             href="https://calendly.com/motuspocus-lab/30min"
@@ -37,10 +39,11 @@ export default function SectionContact() {
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Reserver un appel
+              Réserver un appel
             </span>
           </a>
         </MagneticButton>
+        </div>
 
         {/* Trust signals */}
         <div className="mt-8 flex items-center justify-center gap-4 text-[11px] text-[#dedede]/25 sm:mt-10 sm:gap-6 sm:text-[13px]">

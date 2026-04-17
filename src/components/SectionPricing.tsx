@@ -25,14 +25,14 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
     >
       {plan.highlighted && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2bf2d1] px-3.5 py-1 text-[10px] font-bold tracking-[0.05em] text-[#171717] sm:-top-3.5 sm:px-4 sm:text-[11px]">
-          RECOMMANDE
+          RECOMMANDÉ
         </div>
       )}
 
       <div className="flex flex-1 flex-col p-6 sm:p-7 lg:p-8">
         {/* Header */}
         <div className="mb-5 sm:mb-6">
-          <h3 className="mb-2 text-[16px] text-white sm:mb-3 sm:text-[17px] lg:text-[18px]" style={{ fontWeight: 700 }}>
+          <h3 className="mb-2 text-[16px] text-white sm:mb-3 sm:text-[17px] lg:text-[18px]" style={{ fontWeight: 600 }}>
             {plan.name}
           </h3>
           <div className="mb-1.5 flex items-baseline gap-1 sm:mb-2">
@@ -99,9 +99,9 @@ const plans: Plan[] = [
   {
     name: "Boost",
     price: "500",
-    subtitle: "Ad pour reseaux sociaux",
+    subtitle: "Ad pour réseaux sociaux",
     features: ["30 sec de motion design", "Format Vertical 9:16", "Sound design", "Voix off"],
-    delivery: "Livre en 5-7 jours",
+    delivery: "Livré en 5-7 jours",
     note: "Script fourni par le client",
     option: { label: "2e format 16:9", price: "+ 250 \u20ac" },
     highlighted: false,
@@ -109,9 +109,9 @@ const plans: Plan[] = [
   {
     name: "Scale",
     price: "950",
-    subtitle: "Explainer video ou promo produit",
+    subtitle: "Explainer vidéo ou promo produit",
     features: ["1 minute de motion design", "Format Horizontal 16:9", "Sound design", "Voix off"],
-    delivery: "Livre en 10-14 jours",
+    delivery: "Livré en 10-14 jours",
     note: "Script fourni par le client",
     option: { label: "2e format 9:16", price: "+ 250 \u20ac" },
     highlighted: true,
@@ -119,9 +119,9 @@ const plans: Plan[] = [
   {
     name: "Growth",
     price: "1 450",
-    subtitle: "Video + copywriting",
-    features: ["1 minute de motion design", "Format horizontal 16:9", "Sound design", "Voix off", "Ecriture du script"],
-    delivery: "Livre en 18-25 jours",
+    subtitle: "Vidéo + copywriting",
+    features: ["1 minute de motion design", "Format horizontal 16:9", "Sound design", "Voix off", "Écriture du script"],
+    delivery: "Livré en 18-25 jours",
     note: "",
     option: { label: "2e format 9:16", price: "+ 250 \u20ac" },
     highlighted: false,
@@ -142,12 +142,12 @@ export default function SectionPricing() {
 
       <div className="relative mx-auto max-w-[1100px]">
         <div className={`mb-4 text-center transition-all duration-700 sm:mb-6 ${inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
-          <h2 className="mb-2 text-[24px] text-white sm:mb-3 sm:text-[34px] lg:text-[44px]" style={{ fontWeight: 700, lineHeight: 1.2 }}>
-            Donnez du <span className="italic text-[#2bf2d1]">mouvement</span> a vos idees
+          <h2 className="mb-2 text-[22px] text-white sm:mb-3 sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.2 }}>
+            Donnez du <span className="text-[#2bf2d1]">mouvement</span> à vos idées
           </h2>
           <p className="text-[15px] text-[#dedede]/40 sm:text-[18px] lg:text-[20px]">
-            Choisissez le format qui correspond a{" "}
-            <span className="font-semibold italic text-[#2bf2d1]">votre priorite</span>
+            Choisissez le format qui correspond à{" "}
+            <span className="font-semibold text-[#2bf2d1]">votre priorité</span>
           </p>
         </div>
 

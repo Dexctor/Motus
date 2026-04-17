@@ -35,7 +35,7 @@ export default function Hero() {
           className="mx-auto mb-5 max-w-[750px] text-[22px] text-white opacity-0 animate-[fadeInUp_0.7s_ease-out_0.4s_forwards] sm:mb-10 sm:text-[30px] lg:text-[42px]"
           style={{ fontWeight: 700, lineHeight: 1.25 }}
         >
-          Votre produit compris en{" "}
+          Votre produit compris <br /> en{" "}
           <span className="text-[#2bf2d1]">moins de 30 secondes</span>
         </h1>
 

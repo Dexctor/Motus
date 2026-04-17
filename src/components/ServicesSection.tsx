@@ -66,7 +66,7 @@ function ServiceLabel({ title }: { title: string }) {
       className="mb-8 flex items-center gap-3 sm:mb-10"
     >
       <div className="h-px w-4 bg-[#2bf2d1]/30" />
-      <h3 className="text-[20px] font-semibold text-white/80 sm:text-[24px] lg:text-[28px]">{title}</h3>
+      <h3 className="text-[16px] font-medium text-white/80 sm:text-[18px] lg:text-[20px]">{title}</h3>
     </motion.div>
   );
 }
@@ -83,9 +83,9 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-16 sm:mb-20 lg:mb-24"
+          className="mb-16 text-center sm:mb-20 lg:mb-24"
         >
-          <h2 className="text-[26px] text-white sm:text-[34px] lg:text-[42px]" style={{ fontWeight: 700, lineHeight: 1.15 }}>
+          <h2 className="text-[22px] text-white sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.15 }}>
             Nos services
           </h2>
         </motion.div>
@@ -98,8 +98,8 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* ── Montage Video ── */}
-        <ServiceLabel title="Montage Video" />
+        {/* ── Montage Vidéo ── */}
+        <ServiceLabel title="Montage Vidéo" />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
           {montageVideos.map((v) => (
             <VideoProject key={v.src} src={v.src} title={v.title} />

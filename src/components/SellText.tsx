@@ -4,12 +4,12 @@ export default function SellText() {
       <div className="w-[1001px] max-w-full whitespace-pre-wrap text-white">
         <p className="text-[40px] leading-tight">
           Donnez du{" "}
-          <span className="font-semibold italic text-[#2bf2d1]">mouvement</span>{" "}
-          a vos idées.
+          <span className="font-semibold text-[#2bf2d1]">mouvement</span>{" "}
+          à vos idées.
         </p>
         <p className="text-[40px] leading-tight">
           Choisissez le format qui correspond à{" "}
-          <span className="font-bold italic text-[#2bf2d1]">votre priorité.</span>
+          <span className="font-bold text-[#2bf2d1]">votre priorité.</span>
         </p>
       </div>
     </section>
