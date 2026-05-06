@@ -32,17 +32,9 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
       <div className="flex flex-1 flex-col p-6 sm:p-7 lg:p-8">
         {/* Header */}
         <div className="mb-5 sm:mb-6">
-          <h3 className="mb-2 text-[16px] text-white sm:mb-3 sm:text-[17px] lg:text-[18px]" style={{ fontWeight: 600 }}>
+          <h3 className="mb-2 text-[32px] text-white sm:mb-3 sm:text-[36px] lg:text-[40px]" style={{ fontWeight: 800, lineHeight: 1, letterSpacing: "-0.03em" }}>
             {plan.name}
           </h3>
-          <div className="mb-1.5 flex items-baseline gap-1 sm:mb-2">
-            <span className="text-[32px] text-white sm:text-[36px] lg:text-[40px]" style={{ fontWeight: 800, lineHeight: 1, letterSpacing: "-0.03em" }}>
-              {plan.price}
-            </span>
-            <span className="text-[16px] text-[#dedede]/40 sm:text-[18px] lg:text-[20px]" style={{ fontWeight: 500 }}>
-              &euro;
-            </span>
-          </div>
           <p className="text-[13px] font-semibold text-[#2bf2d1] sm:text-[14px]">{plan.subtitle}</p>
         </div>
 
@@ -71,8 +63,7 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
         <div className="mb-5 rounded-lg border border-[#2bf2d1]/10 bg-[#2bf2d1]/5 px-3 py-2.5 text-center sm:mb-6 sm:px-4 sm:py-3">
           <p className="mb-0.5 text-[10px] font-bold tracking-[0.05em] text-[#2bf2d1] sm:text-[11px]">OPTION</p>
           <p className="text-[12px] text-[#dedede]/50 sm:text-[13px]">
-            {plan.option.label}{" "}
-            <span className="font-bold text-white">{plan.option.price}</span>
+            {plan.option.label}
           </p>
         </div>
 
