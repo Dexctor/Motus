@@ -2,7 +2,12 @@ import { MotusLogoHero } from "./MotusLogo";
 import MagneticButton from "./MagneticButton";
 import VideoPlayer from "./VideoPlayer";
 
-export default function Hero() {
+type HeroProps = {
+  presentationVideoUrl?: string;
+  showreelVideoUrl?: string;
+};
+
+export default function Hero({ presentationVideoUrl, showreelVideoUrl }: HeroProps = {}) {
   return (
     <section
       id="hero"
@@ -53,14 +58,24 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Large video peeking */}
-      <div className="relative z-20 mx-auto mt-auto w-full max-w-[1200px] px-5 opacity-0 animate-[fadeInUp_1s_ease-out_0.9s_forwards] sm:px-6">
-        <div className="relative overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
-          <VideoPlayer
-            src="https://assets.motus-pocus.com/MOTUS_First_Showreel_Ever.webm"
-            className="aspect-video w-full object-cover"
-          />
-        </div>
+      {/* Large videos stack */}
+      <div className="relative z-20 mx-auto mt-auto flex w-full max-w-[1200px] flex-col gap-6 px-5 opacity-0 animate-[fadeInUp_1s_ease-out_0.9s_forwards] sm:gap-8 sm:px-6">
+        {presentationVideoUrl && (
+          <div className="relative overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
+            <VideoPlayer
+              src={presentationVideoUrl}
+              className="aspect-video w-full object-cover"
+            />
+          </div>
+        )}
+        {showreelVideoUrl && (
+          <div className="relative overflow-hidden rounded-2xl bg-[#0d0d0d] shadow-[0_-20px_80px_rgba(0,0,0,0.6)]">
+            <VideoPlayer
+              src={showreelVideoUrl}
+              className="aspect-video w-full object-cover"
+            />
+          </div>
+        )}
       </div>
     </section>
   );
