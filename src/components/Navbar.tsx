@@ -37,7 +37,7 @@ export default function Navbar() {
               Services
             </a>
             <a href="#pricing" className="text-[14px] text-[#dedede]/70 transition-colors hover:text-[#2bf2d1]">
-              Tarifs
+              Offres
             </a>
             {/* Social icons */}
             <div className="flex items-center gap-3">
@@ -98,7 +98,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(false)}
             className="font-display text-[20px] font-semibold text-[#dedede]/80 transition-colors hover:text-[#2bf2d1]"
           >
-            Tarifs
+            Offres
           </a>
           <a
             href="#contact"
