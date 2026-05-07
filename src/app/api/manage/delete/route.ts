@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import { isRequestAuthenticated } from "@/lib/admin-auth";
 import { deleteVideo } from "@/lib/r2";
 
 type DeleteBody = {
@@ -7,6 +8,10 @@ type DeleteBody = {
 };
 
 export async function POST(request: Request) {
+  if (!(await isRequestAuthenticated(request))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let body: DeleteBody;
   try {
     body = (await request.json()) as DeleteBody;

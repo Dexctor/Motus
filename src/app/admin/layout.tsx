@@ -1,6 +1,8 @@
-// Section protégée par Cloudflare Access (cf. README → "Administration du site").
+// Section protégée par mot de passe (cf. README → "Administration du site").
+// Le proxy.ts vérifie le cookie de session avant de servir ces routes.
 import Link from "next/link";
 import type { Metadata } from "next";
+import AdminLogoutButton from "@/components/admin-logout-button";
 
 export const metadata: Metadata = {
   title: "Espace admin",
@@ -25,6 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/" className="hover:text-[#2bf2d1]">
               ← Retour au site
             </Link>
+            <AdminLogoutButton />
           </nav>
         </div>
       </header>

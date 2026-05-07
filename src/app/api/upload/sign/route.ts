@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isRequestAuthenticated } from "@/lib/admin-auth";
 import { getPresignedUploadUrl, type VideoTag } from "@/lib/r2";
 
 const ALLOWED_TAGS: VideoTag[] = ["motion", "montage"];
@@ -16,6 +17,10 @@ function isValidTag(value: unknown): value is VideoTag {
 }
 
 export async function POST(request: Request) {
+  if (!(await isRequestAuthenticated(request))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let body: SignBody;
   try {
     body = (await request.json()) as SignBody;

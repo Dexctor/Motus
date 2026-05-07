@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import { isRequestAuthenticated } from "@/lib/admin-auth";
 import { renameVideo } from "@/lib/r2";
 
 type RenameBody = {
@@ -8,6 +9,10 @@ type RenameBody = {
 };
 
 export async function POST(request: Request) {
+  if (!(await isRequestAuthenticated(request))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   let body: RenameBody;
   try {
     body = (await request.json()) as RenameBody;

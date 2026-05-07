@@ -48,16 +48,21 @@ Deux pages admin permettent d'uploader et gérer ces vidéos sans rebuild :
 - `/admin/upload` — upload direct browser → R2 (signature presigned, contourne la limite Vercel de 4.5 Mo)
 - `/admin/manage` — liste toutes les vidéos (y compris celles à classer), permet de changer leur tag ou de les supprimer
 
-### 1. Cloudflare Access (à faire une fois)
+### 1. Authentification admin (mot de passe partagé)
 
-L'authentification admin est gérée par **Cloudflare Zero Trust → Access**, pas par l'app. Il faut donc configurer une Application qui protège `/admin/*` :
+`/admin/*` et toutes les routes API d'écriture (`/api/upload/*`, `/api/manage/*`, `/api/revalidate`) sont protégés par **un mot de passe partagé**, vérifié via un cookie de session signé HMAC-SHA256.
 
-1. Cloudflare Zero Trust → **Access → Applications → Add an application → Self-hosted**
-2. **Domain** : `motus-pocus.com` (ou ton domaine), path `/admin*`
-3. **Policy** : Action `Allow`, Include `Emails` → liste des emails autorisés
-4. (Optionnel) Activer le magic-link / one-time PIN comme méthode de login
+Le proxy Next 16 (`src/proxy.ts`) intercepte toutes les requêtes vers ces paths et redirige vers `/admin/login` si le cookie est absent ou invalide. Chaque route API revérifie aussi la session côté serveur (defense in depth).
 
-Free jusqu'à 50 utilisateurs.
+**Genère le mot de passe et le secret de session :**
+
+```bash
+node -e "const c=require('crypto'); console.log('PASSWORD=' + c.randomBytes(16).toString('base64url')); console.log('SECRET=' + c.randomBytes(32).toString('base64url'))"
+```
+
+**Partage le mot de passe avec les autres admins** via un gestionnaire de mots de passe (1Password, Bitwarden) — **jamais en clair par message/email**. Le secret de session, lui, ne sort jamais du serveur.
+
+Le cookie de session est valable **30 jours**, `HttpOnly`, `Secure` (en prod), `SameSite=Lax`. Un ratelimite basique (5 tentatives / 5 min / IP) protège la page de login contre le brute-force.
 
 ### 2. Variables d'environnement
 
@@ -69,6 +74,8 @@ R2_ACCESS_KEY_ID=      # API Token R2 (Object Read & Write)
 R2_SECRET_ACCESS_KEY=  # secret associé
 R2_BUCKET_NAME=assets
 NEXT_PUBLIC_R2_PUBLIC_URL=https://assets.motus-pocus.com
+ADMIN_PASSWORD=        # mot de passe partagé (16+ caractères recommandé)
+ADMIN_SESSION_SECRET=  # secret aléatoire 32+ caractères pour signer les cookies
 ```
 
 Sur Vercel : ajouter ces mêmes variables dans **Project Settings → Environment Variables** (Production + Preview).
@@ -78,7 +85,7 @@ Sur Vercel : ajouter ces mêmes variables dans **Project Settings → Environmen
 ### 3. Workflow d'upload
 
 1. Aller sur `/admin/upload`
-2. S'authentifier via Cloudflare Access (magic link reçu par email)
+2. Saisir le mot de passe admin sur `/admin/login` (redirection automatique si non connecté)
 3. Choisir la catégorie (Motion Design / Montage Vidéo)
 4. Glisser ou sélectionner la vidéo (`.webm`, `.mp4` ou `.mov`, max 500 Mo)
 5. Cliquer "Uploader" — l'upload se fait directement vers R2 sans transiter par Vercel
@@ -94,6 +101,17 @@ La vidéo apparaît sur la home après revalidation (déclenchée automatiquemen
    - **Montage Vidéo**
 3. Sur chaque vidéo, choisir une action :
    - "→ Motion Design" / "→ Montage Vidéo" pour changer le tag
+   - "Renommer" (édition inline, conserve le timestamp et l'extension)
    - "Supprimer" (avec confirmation)
 
-Le changement de tag est implémenté comme un copy + delete côté R2 (S3 n'a pas de move natif). La home est revalidée automatiquement.
+Les actions sont implémentées comme copy + delete côté R2 (S3 n'a pas de move/rename natif). La home est revalidée automatiquement.
+
+### 5. Rotation du mot de passe
+
+Si le mot de passe fuite ou si un co-admin part :
+
+1. Génère un nouveau `ADMIN_PASSWORD` (et idéalement un nouveau `ADMIN_SESSION_SECRET` pour invalider toutes les sessions actives)
+2. Met à jour les env vars dans Vercel
+3. Redéploie
+
+Tous les cookies signés avec l'ancien secret deviennent invalides → tous les utilisateurs sont déconnectés.
