@@ -198,3 +198,52 @@ export async function deleteVideo(key: string): Promise<void> {
     }),
   );
 }
+
+export async function renameVideo({
+  key,
+  newName,
+}: {
+  key: string;
+  newName: string;
+}): Promise<{ newKey: string }> {
+  const cleanName = sanitizeFilename(newName);
+  if (!cleanName) {
+    throw new Error("Invalid name after sanitization");
+  }
+
+  const lastSlash = key.lastIndexOf("/");
+  const dir = lastSlash >= 0 ? key.slice(0, lastSlash + 1) : "";
+  const filename = lastSlash >= 0 ? key.slice(lastSlash + 1) : key;
+
+  const extMatch = filename.match(/\.[^.]+$/);
+  const ext = extMatch ? extMatch[0] : "";
+
+  const tsMatch = filename.match(/^(\d+-)/);
+  const timestamp = tsMatch ? tsMatch[1] : "";
+
+  const newKey = `${dir}${timestamp}${cleanName}${ext}`;
+
+  if (newKey === key) {
+    return { newKey };
+  }
+
+  const bucket = getBucketName();
+  const client = r2Client();
+
+  await client.send(
+    new CopyObjectCommand({
+      Bucket: bucket,
+      CopySource: encodeURIComponent(`${bucket}/${key}`),
+      Key: newKey,
+    }),
+  );
+
+  await client.send(
+    new DeleteObjectCommand({
+      Bucket: bucket,
+      Key: key,
+    }),
+  );
+
+  return { newKey };
+}

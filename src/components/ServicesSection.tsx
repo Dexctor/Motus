@@ -1,19 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import VideoPlayer from "./VideoPlayer";
+import type { Video } from "@/lib/r2";
 
-/* ─── Data ─── */
-const motionDesignVideos = [
-  { src: "https://assets.motus-pocus.com/OpaleAcquisition_MotionDesign_V1.webm", title: "Opale Acquisition" },
-  { src: "https://assets.motus-pocus.com/DataFast%20V3.4_SoundDesign_MotusPocus.webm", title: "DataFast" },
-];
-
-const montageVideos = [
-  { src: "https://assets.motus-pocus.com/VKS_VSL_V2.webm", title: "VK Studio" },
-  { src: "https://assets.motus-pocus.com/Sinvestir_BlackRock_recrutement_GaelDewas.webm", title: "S'investir" },
-];
+type ServicesSectionProps = {
+  motionVideos: Video[];
+  montageVideos: Video[];
+};
 
 /* ─── Single video with subtle scroll effects ─── */
 function VideoProject({ src, title }: { src: string; title: string }) {
@@ -71,8 +66,97 @@ function ServiceLabel({ title }: { title: string }) {
   );
 }
 
+/* ─── Carousel of VideoProject items ─── */
+function VideoCarousel({ videos }: { videos: Video[] }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  const updateButtons = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const overflow = el.scrollWidth - el.clientWidth;
+    if (overflow <= 1) {
+      setCanPrev(false);
+      setCanNext(false);
+      return;
+    }
+    setCanPrev(el.scrollLeft > 1);
+    setCanNext(el.scrollLeft < overflow - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    el.addEventListener("scroll", updateButtons, { passive: true });
+    // ResizeObserver fires once on observe(), which performs the initial state computation.
+    const ro = new ResizeObserver(updateButtons);
+    ro.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", updateButtons);
+      ro.disconnect();
+    };
+  }, [updateButtons, videos.length]);
+
+  function scrollByPage(direction: 1 | -1) {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
+  }
+
+  return (
+    <div className="relative">
+      <div
+        ref={trackRef}
+        className="-mx-5 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-5 pb-2 sm:-mx-6 sm:gap-7 sm:px-6 lg:gap-8 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+      >
+        {videos.map((v) => (
+          <div
+            key={v.key}
+            className="w-[calc(100%-0px)] shrink-0 snap-start sm:w-[calc(50%-14px)] lg:w-[calc(50%-16px)]"
+          >
+            <VideoProject src={v.url} title={v.name} />
+          </div>
+        ))}
+      </div>
+
+      {canPrev && (
+        <button
+          type="button"
+          onClick={() => scrollByPage(-1)}
+          aria-label="Précédent"
+          className="absolute left-0 top-[calc(50%-2rem)] z-10 -translate-y-1/2 rounded-full border border-white/15 bg-black/40 p-2 text-white/80 backdrop-blur-sm transition hover:border-[#2bf2d1]/50 hover:text-white sm:left-2"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      )}
+
+      {canNext && (
+        <button
+          type="button"
+          onClick={() => scrollByPage(1)}
+          aria-label="Suivant"
+          className="absolute right-0 top-[calc(50%-2rem)] z-10 -translate-y-1/2 rounded-full border border-white/15 bg-black/40 p-2 text-white/80 backdrop-blur-sm transition hover:border-[#2bf2d1]/50 hover:text-white sm:right-2"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+}
+
 /* ─── Main section ─── */
-export default function ServicesSection() {
+export default function ServicesSection({ motionVideos, montageVideos }: ServicesSectionProps) {
+  if (motionVideos.length === 0 && montageVideos.length === 0) {
+    return null;
+  }
+
   return (
     <section id="services" className="px-5 py-20 sm:px-6 sm:py-28 lg:py-36">
       <div className="mx-auto max-w-[1100px]">
@@ -91,20 +175,22 @@ export default function ServicesSection() {
         </motion.div>
 
         {/* ── Motion Design ── */}
-        <ServiceLabel title="Motion Design" />
-        <div className="mb-20 grid grid-cols-1 gap-6 sm:mb-28 sm:grid-cols-2 sm:gap-7 lg:mb-32 lg:gap-8">
-          {motionDesignVideos.map((v) => (
-            <VideoProject key={v.src} src={v.src} title={v.title} />
-          ))}
-        </div>
+        {motionVideos.length > 0 && (
+          <>
+            <ServiceLabel title="Motion Design" />
+            <div className="mb-20 sm:mb-28 lg:mb-32">
+              <VideoCarousel videos={motionVideos} />
+            </div>
+          </>
+        )}
 
         {/* ── Montage Vidéo ── */}
-        <ServiceLabel title="Montage Vidéo" />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
-          {montageVideos.map((v) => (
-            <VideoProject key={v.src} src={v.src} title={v.title} />
-          ))}
-        </div>
+        {montageVideos.length > 0 && (
+          <>
+            <ServiceLabel title="Montage Vidéo" />
+            <VideoCarousel videos={montageVideos} />
+          </>
+        )}
 
       </div>
     </section>

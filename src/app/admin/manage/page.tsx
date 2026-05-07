@@ -124,7 +124,11 @@ export default async function ManagePage() {
                         {video.key}
                       </p>
                     </div>
-                    <VideoActions videoKey={video.key} currentTag={video.tag} />
+                    <VideoActions
+                      videoKey={video.key}
+                      currentTag={video.tag}
+                      currentName={video.name}
+                    />
                   </li>
                 ))}
               </ul>
