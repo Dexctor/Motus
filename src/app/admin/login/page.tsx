@@ -47,7 +47,7 @@ function LoginForm() {
           disabled={isLoading}
           autoFocus
           autoComplete="current-password"
-          className="rounded-md border border-white/15 bg-[#0d0d0d] px-3 py-2 text-[14px] text-white focus:border-[#2bf2d1] focus:outline-none disabled:opacity-40"
+          className="rounded-md border border-white/15 bg-[#0d0d0d] px-3 py-2 text-[14px] text-white focus:border-accent focus:outline-none disabled:opacity-40"
         />
       </label>
 
@@ -60,7 +60,7 @@ function LoginForm() {
       <button
         type="submit"
         disabled={isLoading || !password}
-        className="rounded-md bg-[#2bf2d1] px-4 py-2 text-[14px] font-medium text-[#171717] hover:bg-[#2bf2d1]/90 disabled:cursor-not-allowed disabled:opacity-40"
+        className="rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-white hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {isLoading ? "Connexion…" : "Se connecter"}
       </button>

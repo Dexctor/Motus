@@ -28,7 +28,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-[#171717] text-white">
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
       <Navbar />
       <Hero presentationVideoUrl={presentationVideoUrl} showreelVideoUrl={showreelVideoUrl} />
       <ServicesSection motionVideos={motionVideos} montageVideos={montageVideos} />

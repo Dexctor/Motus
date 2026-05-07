@@ -15,7 +15,7 @@ export default function SoundToggle() {
   return (
     <button
       onClick={() => setMuted(!muted)}
-      className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#1a1a1a]/80 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-[#2bf2d1]/30 hover:text-white sm:h-11 sm:w-11"
+      className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#1a1a1a]/80 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:text-white sm:h-11 sm:w-11"
       aria-label={muted ? "Activer le son" : "Couper le son"}
     >
       {muted ? (

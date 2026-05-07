@@ -4,8 +4,8 @@ export default function SectionMontageVideo() {
   return (
     <section id="montage-video" className="relative w-full">
       {/* Decorative gradient blobs */}
-      <div className="pointer-events-none absolute -left-[20%] top-0 h-[500px] w-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(43,242,209,0.13),transparent_70%)]" />
-      <div className="pointer-events-none absolute -right-[5%] top-[10%] h-[450px] w-[450px] rounded-full bg-[radial-gradient(ellipse,rgba(43,242,209,0.10),transparent_70%)]" />
+      <div className="pointer-events-none absolute -left-[20%] top-0 h-[500px] w-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(var(--accent-rgb),0.13),transparent_70%)]" />
+      <div className="pointer-events-none absolute -right-[5%] top-[10%] h-[450px] w-[450px] rounded-full bg-[radial-gradient(ellipse,rgba(var(--accent-rgb),0.10),transparent_70%)]" />
 
       {/* Content */}
       <div className="relative z-10 flex w-full flex-col items-center justify-center overflow-clip px-[46px] py-[21px]">

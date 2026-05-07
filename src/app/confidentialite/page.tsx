@@ -33,7 +33,7 @@ export default function Confidentialite() {
               href="https://calendly.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#2bf2d1] hover:underline"
+              className="text-accent hover:underline"
             >
               politique de confidentialite de Calendly
             </a>
@@ -65,7 +65,7 @@ export default function Confidentialite() {
           Conformement au Reglement General sur la Protection des Donnees (RGPD), vous disposez
           d&apos;un droit d&apos;acces, de rectification, de suppression et de portabilite de vos
           donnees. Pour exercer ces droits, contactez-nous a :{" "}
-          <a href="mailto:motuspocus.lab@gmail.com" className="text-[#2bf2d1] hover:underline">
+          <a href="mailto:motuspocus.lab@gmail.com" className="text-accent hover:underline">
             motuspocus.lab@gmail.com
           </a>
         </p>

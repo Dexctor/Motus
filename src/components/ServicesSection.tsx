@@ -49,7 +49,7 @@ function VideoProject({ src, title }: { src: string; title: string }) {
         />
         <motion.div
           style={{ opacity: borderOpacity }}
-          className="pointer-events-none absolute inset-0 rounded-xl border border-[#2bf2d1]/15 sm:rounded-2xl"
+          className="pointer-events-none absolute inset-0 rounded-xl border border-accent/15 sm:rounded-2xl"
         />
       </div>
 
@@ -76,7 +76,7 @@ function ServiceLabel({ title }: { title: string }) {
       transition={{ duration: 0.6 }}
       className="mb-8 flex items-center gap-3 sm:mb-10"
     >
-      <div className="h-px w-4 bg-[#2bf2d1]/30" />
+      <div className="h-px w-4 bg-accent/30" />
       <h3 className="text-[16px] font-medium text-white/80 sm:text-[18px] lg:text-[20px]">{title}</h3>
     </motion.div>
   );

@@ -56,7 +56,7 @@ export default async function ManagePage() {
   return (
     <div className="mx-auto flex w-full max-w-[1100px] flex-col gap-10 px-6 py-12">
       <div className="flex items-center justify-between text-[13px] text-[#dedede]/60">
-        <Link href="/admin/upload" className="hover:text-[#2bf2d1]">
+        <Link href="/admin/upload" className="hover:text-accent">
           ← Uploader une nouvelle vidéo
         </Link>
         <span>{videos.length} vidéo{videos.length > 1 ? "s" : ""}</span>
@@ -82,12 +82,12 @@ export default async function ManagePage() {
           <section key={section.tag} className="flex flex-col gap-4">
             <div
               className={`flex flex-col gap-1 border-l-2 pl-3 ${
-                section.highlight ? "border-[#2bf2d1]" : "border-white/20"
+                section.highlight ? "border-accent" : "border-white/20"
               }`}
             >
               <h2
                 className={`font-display text-[18px] ${
-                  section.highlight ? "text-[#2bf2d1]" : "text-white"
+                  section.highlight ? "text-accent" : "text-white"
                 }`}
               >
                 {section.title} <span className="text-[#dedede]/50">({items.length})</span>

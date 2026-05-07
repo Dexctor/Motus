@@ -16,15 +16,15 @@ export default function Hero({ presentationVideoUrl, showreelVideoUrl }: HeroPro
     >
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[5%] top-[20%] h-[280px] w-[280px] rounded-full bg-[#2bf2d1]/12 blur-[100px] sm:left-[15%] sm:h-[400px] sm:w-[400px] sm:blur-[140px] lg:h-[500px] lg:w-[500px] lg:blur-[160px]" />
-        <div className="absolute bottom-[25%] right-[5%] h-[220px] w-[220px] rounded-full bg-[#2bf2d1]/8 blur-[100px] sm:right-[10%] sm:h-[300px] sm:w-[300px] sm:blur-[120px] lg:h-[400px] lg:w-[400px] lg:blur-[140px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(43,242,209,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(43,242,209,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] sm:bg-[size:80px_80px]" />
+        <div className="absolute left-[5%] top-[20%] h-[280px] w-[280px] rounded-full bg-accent/12 blur-[100px] sm:left-[15%] sm:h-[400px] sm:w-[400px] sm:blur-[140px] lg:h-[500px] lg:w-[500px] lg:blur-[160px]" />
+        <div className="absolute bottom-[25%] right-[5%] h-[220px] w-[220px] rounded-full bg-accent/8 blur-[100px] sm:right-[10%] sm:h-[300px] sm:w-[300px] sm:blur-[120px] lg:h-[400px] lg:w-[400px] lg:blur-[140px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--accent-rgb),0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--accent-rgb),0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] sm:bg-[size:80px_80px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[900px] px-5 pb-24 pt-[22vh] text-center sm:px-6 sm:pb-32 sm:pt-[26vh] lg:pb-40 lg:pt-[30vh]">
         {/* Logo */}
         <div className="mb-8 sm:mb-10">
-          <MotusLogoHero className="mx-auto h-[48px] w-auto text-[#dedede] drop-shadow-[0_0_40px_rgba(43,242,209,0.2)] sm:h-[80px] lg:h-[110px]" />
+          <MotusLogoHero className="mx-auto h-[48px] w-auto text-[#dedede] drop-shadow-[0_0_40px_rgba(var(--accent-rgb),0.2)] sm:h-[80px] lg:h-[110px]" />
         </div>
 
         {/* Subtitle */}
@@ -41,7 +41,7 @@ export default function Hero({ presentationVideoUrl, showreelVideoUrl }: HeroPro
           style={{ fontWeight: 700, lineHeight: 1.25 }}
         >
           Votre produit compris <br /> en{" "}
-          <span className="text-[#2bf2d1]">moins de 30 secondes</span>
+          <span className="text-accent">moins de 30 secondes</span>
         </h1>
 
         {/* CTA */}

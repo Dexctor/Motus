@@ -20,7 +20,7 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
             {[35, 55, 25, 70, 45, 60, 30, 50, 65, 40, 55, 35, 70, 45, 25, 60, 50, 40].map((h, i) => (
               <motion.div
                 key={i}
-                className="flex-1 rounded-t bg-[#2bf2d1]"
+                className="flex-1 rounded-t bg-accent"
                 animate={{
                   height: hovered ? [h * 0.15, h * 0.6, h * 0.3, h * 0.5] : [h * 0.1, h * 0.15, h * 0.1],
                   opacity: hovered ? 0.7 : 0.2,
@@ -38,18 +38,18 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
           <motion.div
             className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full backdrop-blur-sm"
             animate={{
-              backgroundColor: hovered ? "rgba(43,242,209,0.3)" : "rgba(43,242,209,0.15)",
+              backgroundColor: hovered ? "rgba(var(--accent-rgb),0.3)" : "rgba(var(--accent-rgb),0.15)",
               scale: hovered ? [1, 0.9, 1] : 1,
             }}
             transition={{ duration: 0.3 }}
           >
             {hovered ? (
-              <svg className="h-3.5 w-3.5 text-[#2bf2d1]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="h-3.5 w-3.5 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <rect x="6" y="4" width="4" height="16" rx="1" />
                 <rect x="14" y="4" width="4" height="16" rx="1" />
               </svg>
             ) : (
-              <svg className="ml-0.5 h-4 w-4 text-[#2bf2d1]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="ml-0.5 h-4 w-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             )}
@@ -58,8 +58,8 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
           <motion.div
             className="absolute right-2 top-2 rounded px-1.5 py-0.5 text-[9px] font-bold"
             animate={{
-              backgroundColor: hovered ? "rgba(43,242,209,0.9)" : "rgba(43,242,209,0.5)",
-              color: "#171717",
+              backgroundColor: hovered ? "rgba(var(--accent-rgb),0.9)" : "rgba(var(--accent-rgb),0.5)",
+              color: "#0a0a0a",
             }}
           >
             {hovered ? "0:30" : "0:00"}
@@ -68,7 +68,7 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
         {/* Progress bar */}
         <div className="h-1 w-full bg-white/5">
           <motion.div
-            className="h-full bg-[#2bf2d1]"
+            className="h-full bg-accent"
             animate={{ width: hovered ? "100%" : "0%" }}
             transition={{ duration: hovered ? 3 : 0.5, ease: hovered ? "linear" : "easeOut" }}
           />
@@ -78,12 +78,12 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
           <div className="flex items-center gap-1.5">
             <motion.div
               className="h-1.5 w-1.5 rounded-full"
-              animate={{ backgroundColor: hovered ? "#2bf2d1" : "rgba(43,242,209,0.3)" }}
+              animate={{ backgroundColor: hovered ? "var(--color-accent)" : "rgba(var(--accent-rgb),0.3)" }}
             />
             <span className="text-[8px] text-white/30">showreel.mp4</span>
           </div>
           <motion.span
-            className="text-[8px] font-medium text-[#2bf2d1]"
+            className="text-[8px] font-medium text-accent"
             animate={{ opacity: hovered ? 1 : 0 }}
           >
             HD 1080p
@@ -101,7 +101,7 @@ export function ClarityScene({ hovered }: { hovered: boolean }) {
    ═══════════════════════════════════════════ */
 export function ImpactScene({ hovered }: { hovered: boolean }) {
   const notifs = [
-    { icon: "👁", text: "1.2k vues", hoverText: "8.4k vues", delay: 0, color: "border-[#2bf2d1]/20" },
+    { icon: "👁", text: "1.2k vues", hoverText: "8.4k vues", delay: 0, color: "border-accent/20" },
     { icon: "🔥", text: "+89%", hoverText: "+340%", delay: 1.2, color: "border-orange-500/20" },
     { icon: "💬", text: "6 leads", hoverText: "48 leads", delay: 2.4, color: "border-blue-400/20" },
   ];
@@ -131,7 +131,7 @@ export function ImpactScene({ hovered }: { hovered: boolean }) {
           </span>
           {hovered && (
             <motion.span
-              className="ml-auto text-[9px] font-bold text-[#2bf2d1]"
+              className="ml-auto text-[9px] font-bold text-accent"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 + i * 0.1 }}
@@ -143,7 +143,7 @@ export function ImpactScene({ hovered }: { hovered: boolean }) {
       ))}
       {/* Hover glow */}
       <motion.div
-        className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_50%_50%,rgba(43,242,209,0.06),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_50%_50%,rgba(var(--accent-rgb),0.06),transparent_70%)]"
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       />
@@ -183,11 +183,11 @@ export function SpeedScene({ hovered }: { hovered: boolean }) {
                 className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border"
                 animate={{
                   borderColor: isCompleted
-                    ? "#2bf2d1"
-                    : ["rgba(255,255,255,0.08)", "rgba(43,242,209,0.5)", "rgba(43,242,209,0.5)", "rgba(255,255,255,0.08)"],
+                    ? "var(--color-accent)"
+                    : ["rgba(255,255,255,0.08)", "rgba(var(--accent-rgb),0.5)", "rgba(var(--accent-rgb),0.5)", "rgba(255,255,255,0.08)"],
                   backgroundColor: isCompleted
-                    ? "rgba(43,242,209,0.2)"
-                    : ["rgba(0,0,0,0)", "rgba(43,242,209,0.1)", "rgba(43,242,209,0.1)", "rgba(0,0,0,0)"],
+                    ? "rgba(var(--accent-rgb),0.2)"
+                    : ["rgba(0,0,0,0)", "rgba(var(--accent-rgb),0.1)", "rgba(var(--accent-rgb),0.1)", "rgba(0,0,0,0)"],
                   scale: isCompleted ? [1, 1.2, 1] : 1,
                 }}
                 transition={{
@@ -198,7 +198,7 @@ export function SpeedScene({ hovered }: { hovered: boolean }) {
                 }}
               >
                 <motion.svg
-                  className="h-2.5 w-2.5 text-[#2bf2d1]"
+                  className="h-2.5 w-2.5 text-accent"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}
                   animate={{
                     opacity: isCompleted
@@ -222,7 +222,7 @@ export function SpeedScene({ hovered }: { hovered: boolean }) {
                 <motion.span
                   className="text-[10px] font-medium"
                   animate={{
-                    color: isCompleted ? "#2bf2d1" : "rgba(255,255,255,0.35)",
+                    color: isCompleted ? "var(--color-accent)" : "rgba(255,255,255,0.35)",
                   }}
                   transition={{ delay: isCompleted ? i * 0.1 : 0, duration: 0.3 }}
                 >
@@ -230,7 +230,7 @@ export function SpeedScene({ hovered }: { hovered: boolean }) {
                 </motion.span>
                 <div className="mt-0.5 h-[2px] w-full overflow-hidden rounded-full bg-white/5">
                   <motion.div
-                    className="h-full rounded-full bg-[#2bf2d1]"
+                    className="h-full rounded-full bg-accent"
                     animate={{
                       width: isCompleted ? "100%" : ["0%", "100%", "100%", "0%"],
                     }}
@@ -249,7 +249,7 @@ export function SpeedScene({ hovered }: { hovered: boolean }) {
         })}
         {/* "Done" badge on hover */}
         <motion.div
-          className="mt-1 self-end rounded-full bg-[#2bf2d1]/20 px-3 py-0.5 text-[9px] font-bold text-[#2bf2d1]"
+          className="mt-1 self-end rounded-full bg-accent/20 px-3 py-0.5 text-[9px] font-bold text-accent"
           animate={{
             opacity: hovered ? 1 : 0,
             y: hovered ? 0 : 8,
@@ -283,10 +283,10 @@ export function ConversionScene({ hovered }: { hovered: boolean }) {
         <div className="mb-3 flex items-center justify-between">
           <span className="text-[9px] font-medium text-white/20">Funnel Q1 2026</span>
           <motion.div
-            className="rounded bg-[#2bf2d1]/15 px-1.5 py-0.5 text-[10px] font-bold text-[#2bf2d1]"
+            className="rounded bg-accent/15 px-1.5 py-0.5 text-[10px] font-bold text-accent"
             animate={{
               scale: hovered ? [1, 1.15, 1] : 1,
-              backgroundColor: hovered ? "rgba(43,242,209,0.25)" : "rgba(43,242,209,0.1)",
+              backgroundColor: hovered ? "rgba(var(--accent-rgb),0.25)" : "rgba(var(--accent-rgb),0.1)",
             }}
             transition={{ duration: 0.4 }}
           >
@@ -305,8 +305,8 @@ export function ConversionScene({ hovered }: { hovered: boolean }) {
                   animate={{
                     width: hovered ? m.width : ["0%", m.width, m.width, "0%"],
                     backgroundColor: hovered
-                      ? "rgba(43,242,209,0.35)"
-                      : "rgba(43,242,209,0.15)",
+                      ? "rgba(var(--accent-rgb),0.35)"
+                      : "rgba(var(--accent-rgb),0.15)",
                   }}
                   transition={{
                     duration: hovered ? 0.5 : 6,
@@ -342,7 +342,7 @@ export function ConversionScene({ hovered }: { hovered: boolean }) {
           transition={{ delay: hovered ? 0.5 : 0, duration: 0.3 }}
         >
           <span className="text-white/30">Taux de conversion:</span>
-          <span className="font-bold text-[#2bf2d1]">2.5%</span>
+          <span className="font-bold text-accent">2.5%</span>
         </motion.div>
       </div>
     </div>

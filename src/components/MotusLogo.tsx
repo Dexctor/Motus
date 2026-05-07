@@ -22,7 +22,11 @@ export default function MotusLogo({ className = "" }: { className?: string }) {
     >
       <g clipPath="url(#clip_motus_nav)">
         {letters.map((letter) => (
-          <path key={letter.id} d={letter.d} fill="currentColor" />
+          <path
+            key={letter.id}
+            d={letter.d}
+            fill={letter.id === "O" ? "var(--color-accent)" : "currentColor"}
+          />
         ))}
       </g>
       <defs>
@@ -47,28 +51,49 @@ export function MotusLogoHero({ className = "" }: { className?: string }) {
         {letters.map((letter, i) => {
           const strokeDelay = i * 0.25;
           const fillDelay = strokeDelay + 0.6;
+          const isO = letter.id === "O";
+          const color = isO ? "var(--color-accent)" : "#dedede";
+          const lastFillEnd = (letters.length - 1) * 0.25 + 0.6 + 0.5;
+          const stretchDelay = lastFillEnd + 0.2;
+          const initialPath = isO ? svgPaths.logoOCircular : letter.d;
+          const oIndex = letters.findIndex((l) => l.id === "O");
+          const initialX = isO ? 0 : i < oIndex ? 15 : -15;
+          const stretchTransition = {
+            delay: stretchDelay,
+            type: "spring" as const,
+            stiffness: 600,
+            damping: 18,
+            mass: 0.6,
+          };
           return (
-            <g key={letter.id}>
+            <motion.g
+              key={letter.id}
+              initial={{ x: initialX }}
+              animate={{ x: 0 }}
+              transition={stretchTransition}
+            >
               <motion.path
-                d={letter.d}
-                stroke="#dedede"
+                stroke={color}
                 strokeWidth="1"
                 fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
+                initial={{ pathLength: 0, opacity: 0, d: initialPath }}
+                animate={{ pathLength: 1, opacity: 1, d: letter.d }}
                 transition={{
                   pathLength: { delay: strokeDelay, duration: 0.8, ease: "easeInOut" },
                   opacity: { delay: strokeDelay, duration: 0.1 },
+                  d: isO ? stretchTransition : { duration: 0 },
                 }}
               />
               <motion.path
-                d={letter.d}
-                fill="#dedede"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: fillDelay, duration: 0.5, ease: "easeOut" }}
+                fill={color}
+                initial={{ opacity: 0, d: initialPath }}
+                animate={{ opacity: 1, d: letter.d }}
+                transition={{
+                  opacity: { delay: fillDelay, duration: 0.5, ease: "easeOut" },
+                  d: isO ? stretchTransition : { duration: 0 },
+                }}
               />
-            </g>
+            </motion.g>
           );
         })}
       </svg>

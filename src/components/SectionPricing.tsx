@@ -18,13 +18,13 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
     <div
       className={`group relative flex flex-col rounded-2xl transition-all duration-500 ${
         plan.highlighted
-          ? "border-2 border-[#2bf2d1]/60 bg-gradient-to-b from-[#2bf2d1]/8 to-white/[0.02] shadow-[0_0_40px_rgba(43,242,209,0.1)] sm:scale-[1.03] sm:shadow-[0_0_60px_rgba(43,242,209,0.12)]"
+          ? "border-2 border-accent/60 bg-gradient-to-b from-accent/8 to-white/[0.02] shadow-[0_0_40px_rgba(var(--accent-rgb),0.1)] sm:scale-[1.03] sm:shadow-[0_0_60px_rgba(var(--accent-rgb),0.12)]"
           : "border border-white/[0.06] bg-white/[0.03] hover:border-white/[0.12]"
       } ${inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
       style={{ transitionDelay: `${delay}s` }}
     >
       {plan.highlighted && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#2bf2d1] px-3.5 py-1 text-[10px] font-bold tracking-[0.05em] text-[#171717] sm:-top-3.5 sm:px-4 sm:text-[11px]">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3.5 py-1 text-[10px] font-bold tracking-[0.05em] text-white sm:-top-3.5 sm:px-4 sm:text-[11px]">
           RECOMMANDÉ
         </div>
       )}
@@ -35,7 +35,7 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
           <h3 className="mb-2 text-[32px] text-white sm:mb-3 sm:text-[36px] lg:text-[40px]" style={{ fontWeight: 800, lineHeight: 1, letterSpacing: "-0.03em" }}>
             {plan.name}
           </h3>
-          <p className="text-[13px] font-semibold text-[#2bf2d1] sm:text-[14px]">{plan.subtitle}</p>
+          <p className="text-[13px] font-semibold text-accent sm:text-[14px]">{plan.subtitle}</p>
         </div>
 
         {/* Divider */}
@@ -45,7 +45,7 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
         <ul className="mb-5 flex-1 space-y-2.5 sm:mb-6 sm:space-y-3">
           {plan.features.map((f, fi) => (
             <li key={fi} className="flex items-start gap-2 sm:gap-2.5">
-              <svg className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#2bf2d1] sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               <span className="text-[13px] text-[#dedede]/60 sm:text-[14px]">{f}</span>
@@ -60,8 +60,8 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
         </div>
 
         {/* Option */}
-        <div className="mb-5 rounded-lg border border-[#2bf2d1]/10 bg-[#2bf2d1]/5 px-3 py-2.5 text-center sm:mb-6 sm:px-4 sm:py-3">
-          <p className="mb-0.5 text-[10px] font-bold tracking-[0.05em] text-[#2bf2d1] sm:text-[11px]">OPTION</p>
+        <div className="mb-5 rounded-lg border border-accent/10 bg-accent/5 px-3 py-2.5 text-center sm:mb-6 sm:px-4 sm:py-3">
+          <p className="mb-0.5 text-[10px] font-bold tracking-[0.05em] text-accent sm:text-[11px]">OPTION</p>
           <p className="text-[12px] text-[#dedede]/50 sm:text-[13px]">
             {plan.option.label}
           </p>
@@ -74,7 +74,7 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
           rel="noopener noreferrer"
           className={`block w-full rounded-xl py-3 text-center text-[13px] transition-all duration-300 active:scale-95 sm:py-3.5 sm:text-[14px] ${
             plan.highlighted
-              ? "bg-[#2bf2d1] text-[#171717] hover:bg-[#24d4bc] hover:shadow-[0_0_30px_rgba(43,242,209,0.3)]"
+              ? "bg-accent text-white hover:bg-accent-hover hover:shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)]"
               : "border border-white/[0.08] bg-white/[0.05] text-white hover:bg-white/[0.08]"
           }`}
           style={{ fontWeight: 600 }}
@@ -128,17 +128,17 @@ export default function SectionPricing() {
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="pricing" ref={ref}>
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="h-[300px] w-[400px] rounded-full bg-[#2bf2d1]/8 blur-[140px] sm:h-[400px] sm:w-[600px] sm:blur-[180px] lg:h-[500px] lg:w-[800px] lg:blur-[200px]" />
+        <div className="h-[300px] w-[400px] rounded-full bg-accent/8 blur-[140px] sm:h-[400px] sm:w-[600px] sm:blur-[180px] lg:h-[500px] lg:w-[800px] lg:blur-[200px]" />
       </div>
 
       <div className="relative mx-auto max-w-[1100px]">
         <div className={`mb-4 text-left transition-all duration-700 sm:mb-6 sm:text-center ${inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
           <h2 className="mb-2 text-[22px] text-white sm:mb-3 sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.2 }}>
-            Donnez du <span className="text-[#2bf2d1]">mouvement</span> à vos idées
+            Donnez du <span className="text-accent">mouvement</span> à vos idées
           </h2>
           <p className="text-[15px] text-[#dedede]/40 sm:text-[18px] lg:text-[20px]">
             Choisissez le format qui correspond à{" "}
-            <span className="font-semibold text-[#2bf2d1]">votre priorité</span>
+            <span className="font-semibold text-accent">votre priorité</span>
           </p>
         </div>
 

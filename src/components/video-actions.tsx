@@ -125,13 +125,13 @@ export default function VideoActions({ videoKey, currentTag, currentName }: Vide
             onChange={(e) => setDraftName(e.target.value)}
             disabled={isLoading}
             autoFocus
-            className="min-w-0 flex-1 rounded-md border border-white/15 bg-[#0d0d0d] px-2 py-1.5 text-[13px] text-white focus:border-[#2bf2d1] focus:outline-none disabled:opacity-40"
+            className="min-w-0 flex-1 rounded-md border border-white/15 bg-[#0d0d0d] px-2 py-1.5 text-[13px] text-white focus:border-accent focus:outline-none disabled:opacity-40"
             placeholder="Nouveau nom"
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="rounded-md bg-[#2bf2d1] px-3 py-1.5 text-[12px] font-medium text-[#171717] hover:bg-[#2bf2d1]/90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-md bg-accent px-3 py-1.5 text-[12px] font-medium text-white hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Valider
           </button>
@@ -163,7 +163,7 @@ export default function VideoActions({ videoKey, currentTag, currentName }: Vide
               type="button"
               onClick={() => moveTo(t)}
               disabled={isLoading}
-              className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:border-[#2bf2d1]/50 hover:bg-[#2bf2d1]/10 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:border-accent/50 hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-40"
             >
               → {TAG_LABELS[t]}
             </button>
@@ -172,7 +172,7 @@ export default function VideoActions({ videoKey, currentTag, currentName }: Vide
           type="button"
           onClick={startRename}
           disabled={isLoading}
-          className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:border-[#2bf2d1]/50 hover:bg-[#2bf2d1]/10 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] text-white hover:border-accent/50 hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-40"
         >
           Renommer
         </button>

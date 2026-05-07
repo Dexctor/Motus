@@ -26,7 +26,7 @@ export default function AdminLogoutButton() {
       type="button"
       onClick={logout}
       disabled={isLoading}
-      className="text-[13px] text-[#dedede]/70 hover:text-[#2bf2d1] disabled:cursor-not-allowed disabled:opacity-40"
+      className="text-[13px] text-[#dedede]/70 hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
     >
       {isLoading ? "…" : "Déconnexion"}
     </button>

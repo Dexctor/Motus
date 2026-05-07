@@ -127,7 +127,7 @@ export default function UploadPage() {
   return (
     <div className="mx-auto flex w-full max-w-[640px] flex-col gap-8 px-6 py-12">
       <div className="flex items-center justify-between text-[13px] text-[#dedede]/60">
-        <Link href="/admin/manage" className="hover:text-[#2bf2d1]">
+        <Link href="/admin/manage" className="hover:text-accent">
           → Gérer les vidéos existantes
         </Link>
       </div>
@@ -140,7 +140,7 @@ export default function UploadPage() {
       </header>
 
       {status === "success" ? (
-        <div className="flex flex-col gap-4 rounded-lg border border-[#2bf2d1]/40 bg-[#2bf2d1]/10 p-6">
+        <div className="flex flex-col gap-4 rounded-lg border border-accent/40 bg-accent/10 p-6">
           <p className="text-[15px] text-white">
             Vidéo uploadée avec succès dans la catégorie{" "}
             <span className="font-semibold">{tag === "motion" ? "Motion Design" : "Montage Vidéo"}</span>.
@@ -149,7 +149,7 @@ export default function UploadPage() {
             <button
               type="button"
               onClick={reset}
-              className="rounded-md bg-[#2bf2d1] px-4 py-2 text-[14px] font-medium text-[#171717] hover:bg-[#2bf2d1]/90"
+              className="rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-white hover:bg-accent/90"
             >
               Uploader une autre vidéo
             </button>
@@ -171,7 +171,7 @@ export default function UploadPage() {
               id="tag"
               value={tag}
               onChange={(e) => setTag(e.target.value as Tag)}
-              className="rounded-md border border-white/15 bg-[#0d0d0d] px-3 py-2 text-[14px] text-white focus:border-[#2bf2d1] focus:outline-none"
+              className="rounded-md border border-white/15 bg-[#0d0d0d] px-3 py-2 text-[14px] text-white focus:border-accent focus:outline-none"
             >
               <option value="motion">Motion Design</option>
               <option value="montage">Montage Vidéo</option>
@@ -184,7 +184,7 @@ export default function UploadPage() {
             onDragLeave={onDragLeave}
             className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed px-6 py-12 text-center transition-colors ${
               isDragging
-                ? "border-[#2bf2d1] bg-[#2bf2d1]/5"
+                ? "border-accent bg-accent/5"
                 : "border-white/20 hover:border-white/40"
             } ${isUploading ? "pointer-events-none opacity-60" : ""}`}
           >
@@ -215,7 +215,7 @@ export default function UploadPage() {
             <div className="flex flex-col gap-2">
               <div className="h-2 overflow-hidden rounded-full bg-white/10">
                 <div
-                  className="h-full bg-[#2bf2d1] transition-[width] duration-150"
+                  className="h-full bg-accent transition-[width] duration-150"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -232,7 +232,7 @@ export default function UploadPage() {
           <button
             type="submit"
             disabled={!file || isUploading}
-            className="rounded-md bg-[#2bf2d1] px-4 py-2 text-[14px] font-medium text-[#171717] hover:bg-[#2bf2d1]/90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-md bg-accent px-4 py-2 text-[14px] font-medium text-white hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isUploading ? "Upload en cours…" : "Uploader"}
           </button>

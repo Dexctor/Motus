@@ -25,7 +25,7 @@ function EyeIcon({ hovered }: { hovered: boolean }) {
             ? "M24 13C14 13 7 24 7 24C7 24 14 35 24 35C34 35 41 24 41 24C41 24 34 13 24 13Z"
             : "M24 14C14 14 7 24 7 24C7 24 14 34 24 34C34 34 41 24 41 24C41 24 34 14 24 14Z",
         }}
-        stroke="#2bf2d1"
+        stroke="var(--color-accent)"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -37,14 +37,14 @@ function EyeIcon({ hovered }: { hovered: boolean }) {
         cx="24"
         cy="24"
         r="5"
-        stroke="#2bf2d1"
+        stroke="var(--color-accent)"
         strokeWidth="2"
         fill="none"
         animate={{ r: hovered ? 6 : 5 }}
         transition={{ type: "spring", stiffness: 300, damping: 15 }}
       />
       {/* Pupil */}
-      <circle cx="24" cy="24" r="2.5" fill="#2bf2d1" />
+      <circle cx="24" cy="24" r="2.5" fill="var(--color-accent)" />
     </motion.svg>
   );
 }
@@ -71,13 +71,13 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
       {/* Main bolt */}
       <motion.path
         d="M26 6L12 26H22L20 42L36 20H26L26 6Z"
-        stroke="#2bf2d1"
+        stroke="var(--color-accent)"
         strokeWidth="2"
         strokeLinejoin="round"
         fill="none"
         animate={{
           rotate: hovered ? 3 : 0,
-          fill: hovered ? "rgba(43,242,209,0.2)" : "rgba(43,242,209,0)",
+          fill: hovered ? "rgba(var(--accent-rgb),0.2)" : "rgba(var(--accent-rgb),0)",
         }}
         style={{ originX: "24px", originY: "24px" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -87,7 +87,7 @@ function LightningIcon({ hovered }: { hovered: boolean }) {
       {bursts.map((b, i) => (
         <motion.line
           key={i}
-          stroke="#2bf2d1"
+          stroke="var(--color-accent)"
           strokeWidth="2.5"
           strokeLinecap="round"
           animate={{
@@ -116,7 +116,7 @@ function GraphIcon({ mouseHovered }: { hovered: boolean; mouseHovered?: boolean 
   ];
 
   return (
-    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 24 24" fill="none" stroke="#2bf2d1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="h-20 w-20 sm:h-24 sm:w-24" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 3v16a2 2 0 0 0 2 2h16" opacity={0.6} />
       {bars.map((bar, i) => (
         <motion.line
@@ -250,7 +250,7 @@ export default function SectionValueProps() {
           className="mb-12 text-left sm:mb-16 sm:text-center"
         >
           <h2 className="text-[22px] text-white sm:text-[28px] lg:text-[36px]" style={{ fontWeight: 600, lineHeight: 1.15 }}>
-            Ce qui fait la <span className="text-[#2bf2d1]">différence</span>
+            Ce qui fait la <span className="text-accent">différence</span>
           </h2>
         </motion.div>
 

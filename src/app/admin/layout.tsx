@@ -12,19 +12,19 @@ export const metadata: Metadata = {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <header className="border-b border-white/10 bg-[#171717]">
+      <header className="border-b border-white/10 bg-[#0a0a0a]">
         <div className="mx-auto flex w-full max-w-[1100px] items-center justify-between px-6 py-4">
           <Link href="/admin/upload" className="font-display text-[15px] text-white">
             Espace admin Motus
           </Link>
           <nav className="flex items-center gap-4 text-[13px] text-[#dedede]/70">
-            <Link href="/admin/upload" className="hover:text-[#2bf2d1]">
+            <Link href="/admin/upload" className="hover:text-accent">
               Upload
             </Link>
-            <Link href="/admin/manage" className="hover:text-[#2bf2d1]">
+            <Link href="/admin/manage" className="hover:text-accent">
               Gérer
             </Link>
-            <Link href="/" className="hover:text-[#2bf2d1]">
+            <Link href="/" className="hover:text-accent">
               ← Retour au site
             </Link>
             <AdminLogoutButton />

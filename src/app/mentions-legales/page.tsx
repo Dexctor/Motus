@@ -50,7 +50,7 @@ export default function MentionsLegales() {
         <h2 className="mb-3 text-[18px] font-semibold text-white">Contact</h2>
         <p>
           Pour toute question, contactez-nous a :{" "}
-          <a href="mailto:motuspocus.lab@gmail.com" className="text-[#2bf2d1] hover:underline">
+          <a href="mailto:motuspocus.lab@gmail.com" className="text-accent hover:underline">
             motuspocus.lab@gmail.com
           </a>
         </p>

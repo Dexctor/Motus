@@ -10,7 +10,7 @@ export default function OgImage() {
     (
       <div
         style={{
-          background: "#171717",
+          background: "#0a0a0a",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -29,7 +29,7 @@ export default function OgImage() {
             width: 400,
             height: 400,
             borderRadius: "50%",
-            background: "rgba(43,242,209,0.08)",
+            background: "rgba(var(--accent-rgb),0.08)",
             filter: "blur(100px)",
           }}
         />
@@ -41,7 +41,7 @@ export default function OgImage() {
             width: 300,
             height: 300,
             borderRadius: "50%",
-            background: "rgba(43,242,209,0.06)",
+            background: "rgba(var(--accent-rgb),0.06)",
             filter: "blur(80px)",
           }}
         />
@@ -85,7 +85,7 @@ export default function OgImage() {
             style={{
               fontSize: 32,
               fontWeight: 700,
-              color: "#2bf2d1",
+              color: "var(--color-accent)",
             }}
           >
             moins de 30 secondes

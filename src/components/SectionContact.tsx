@@ -4,7 +4,7 @@ export default function SectionContact() {
   return (
     <section className="relative px-5 py-20 sm:px-6 sm:py-28 lg:py-40" id="contact">
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div className="h-[250px] w-[300px] rounded-full bg-[#2bf2d1]/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
+        <div className="h-[250px] w-[300px] rounded-full bg-accent/6 blur-[120px] sm:h-[350px] sm:w-[450px] sm:blur-[140px] lg:h-[400px] lg:w-[600px] lg:blur-[160px]" />
       </div>
 
       <div className="relative mx-auto max-w-[620px] text-left">
@@ -13,7 +13,7 @@ export default function SectionContact() {
           style={{ fontWeight: 600, lineHeight: 1.2 }}
         >
           Parlons ensemble de{" "}
-          <span className="text-[#2bf2d1]">votre projet</span>
+          <span className="text-accent">votre projet</span>
         </h2>
 
         <p
