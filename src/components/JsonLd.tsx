@@ -6,7 +6,7 @@ export default function JsonLd() {
     url: "https://motus-pocus.com",
     logo: "https://motus-pocus.com/og-image.png",
     description:
-      "Freelance motion design et montage video pour SaaS B2B. Videos explicatives, ads pour reseaux sociaux, sound design.",
+      "Freelance motion design et montage vidéo pour SaaS B2B. Vidéos explicatives, ads pour réseaux sociaux, sound design.",
     email: "motuspocus.lab@gmail.com",
     priceRange: "500€ - 1450€",
     address: {
@@ -19,7 +19,7 @@ export default function JsonLd() {
     ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Services Motion Design & Montage Video",
+      name: "Services Motion Design & Montage Vidéo",
       itemListElement: [
         {
           "@type": "Offer",

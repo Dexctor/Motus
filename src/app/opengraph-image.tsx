@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Motus Pocus — Motion Design & Montage Video pour SaaS B2B";
+export const alt = "Motus Pocus — Motion Design & Montage Vidéo pour SaaS B2B";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,7 +29,7 @@ export default function OgImage() {
             width: 400,
             height: 400,
             borderRadius: "50%",
-            background: "rgba(var(--accent-rgb),0.08)",
+            background: "rgba(0,170,91,0.18)",
             filter: "blur(100px)",
           }}
         />
@@ -41,7 +41,7 @@ export default function OgImage() {
             width: 300,
             height: 300,
             borderRadius: "50%",
-            background: "rgba(var(--accent-rgb),0.06)",
+            background: "rgba(0,170,91,0.14)",
             filter: "blur(80px)",
           }}
         />
@@ -67,7 +67,7 @@ export default function OgImage() {
             marginBottom: 40,
           }}
         >
-          Motion Design & Montage Video pour SaaS B2B
+          Motion Design & Montage Vidéo pour SaaS B2B
         </div>
 
         {/* Tagline */}
@@ -85,7 +85,7 @@ export default function OgImage() {
             style={{
               fontSize: 32,
               fontWeight: 700,
-              color: "var(--color-accent)",
+              color: "#00aa5b",
             }}
           >
             moins de 30 secondes
@@ -105,8 +105,6 @@ export default function OgImage() {
           }}
         >
           <span>motus-pocus.com</span>
-          <span>•</span>
-          <span>A partir de 500€</span>
         </div>
       </div>
     ),

@@ -18,21 +18,21 @@ const eudoxus = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://motus-pocus.com"),
   title: {
-    default: "Motus Pocus — Motion Design & Montage Video pour SaaS B2B",
+    default: "Motus Pocus — Motion Design & Montage Vidéo pour SaaS B2B",
     template: "%s | Motus Pocus",
   },
   description:
-    "Freelance motion design et montage video pour SaaS B2B. Videos explicatives, ads pour reseaux sociaux, sound design. Livraison en 5 a 25 jours. Devis a partir de 500€.",
+    "Freelance motion design et montage vidéo pour SaaS B2B. Vidéos explicatives, ads pour réseaux sociaux, sound design.",
   keywords: [
     "motion design",
-    "montage video",
+    "montage vidéo",
     "SaaS B2B",
-    "video explicative",
+    "vidéo explicative",
     "freelance motion designer",
     "animation produit",
     "video marketing",
     "sound design",
-    "ads video",
+    "ads vidéo",
     "motus pocus",
   ],
   authors: [{ name: "Motus Pocus", url: "https://motus-pocus.com" }],
@@ -50,23 +50,23 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://motus-pocus.com",
     siteName: "Motus Pocus",
-    title: "Motus Pocus — Motion Design & Montage Video pour SaaS B2B",
+    title: "Motus Pocus — Motion Design & Montage Vidéo pour SaaS B2B",
     description:
-      "Freelance motion design et montage video pour SaaS B2B. Videos explicatives, ads, sound design. A partir de 500€.",
+      "Freelance motion design et montage vidéo pour SaaS B2B. Vidéos explicatives, ads, sound design.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Motus Pocus — Motion Design & Montage Video",
+        alt: "Motus Pocus — Motion Design & Montage Vidéo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Motus Pocus — Motion Design & Montage Video pour SaaS B2B",
+    title: "Motus Pocus — Motion Design & Montage Vidéo pour SaaS B2B",
     description:
-      "Freelance motion design et montage video pour SaaS B2B. A partir de 500€.",
+      "Freelance motion design et montage vidéo pour SaaS B2B.",
     images: ["/og-image.png"],
   },
   icons: {
