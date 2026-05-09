@@ -55,9 +55,9 @@ export const metadata: Metadata = {
       "Freelance motion design et montage vidéo pour SaaS B2B. Vidéos explicatives, ads, sound design.",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/assets/og-image.png",
+        width: 2400,
+        height: 1600,
         alt: "Motus Pocus — Motion Design & Montage Vidéo",
       },
     ],
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Motus Pocus — Motion Design & Montage Vidéo pour SaaS B2B",
     description:
       "Freelance motion design et montage vidéo pour SaaS B2B.",
-    images: ["/og-image.png"],
+    images: ["/assets/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
