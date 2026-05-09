@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ServicesSection from "@/components/ServicesSection";
 import SectionValueProps from "@/components/SectionValueProps";
-import SectionPricing from "@/components/SectionPricing";
+import SectionOffre from "@/components/SectionOffre";
 import SectionContact from "@/components/SectionContact";
 import Footer from "@/components/Footer";
 import { listVideos, type Video } from "@/lib/r2";
@@ -33,7 +33,7 @@ export default async function Home() {
       <Hero presentationVideoUrl={presentationVideoUrl} showreelVideoUrl={showreelVideoUrl} />
       <ServicesSection motionVideos={motionVideos} montageVideos={montageVideos} />
       <SectionValueProps />
-      <SectionPricing />
+      <SectionOffre />
       <SectionContact />
       <Footer />
     </div>

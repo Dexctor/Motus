@@ -54,10 +54,11 @@ function PricingCard({ plan, inView, delay }: { plan: Plan; inView: boolean; del
         </ul>
 
         {/* Meta */}
-        <div className="mb-5 space-y-1 sm:mb-6 sm:space-y-1.5">
-          <p className="text-[12px] text-[#dedede]/35 sm:text-[13px]">{plan.delivery}</p>
-          {plan.note && <p className="text-[12px] text-[#dedede]/35 sm:text-[13px]">{plan.note}</p>}
-        </div>
+        {plan.note && (
+          <div className="mb-5 space-y-1 sm:mb-6 sm:space-y-1.5">
+            <p className="text-[12px] text-[#dedede]/35 sm:text-[13px]">{plan.note}</p>
+          </div>
+        )}
 
         {/* Option */}
         <div className="mb-5 rounded-lg border border-accent/10 bg-accent/5 px-3 py-2.5 text-center sm:mb-6 sm:px-4 sm:py-3">
