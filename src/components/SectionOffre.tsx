@@ -120,7 +120,7 @@ const plans: Plan[] = [
   },
 ];
 
-export default function SectionPricing() {
+export default function SectionOffre() {
   const { ref, inView } = useInView();
 
   // On mobile, show Scale (recommended) first
